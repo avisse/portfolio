@@ -2,46 +2,39 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
-  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Activité 1 — EKS + Lambda (Terraform) !</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Activité 1 — EKS + Lambda (Terraform)</title>
 
   <!-- Favicons -->
   <link href="./assets/img/favicon.png" rel="icon" />
   <link href="./assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
 
-  <!-- Google Fonts -->
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Poppins:300,400,500,600,700" rel="stylesheet" />
 
-  <!-- Vendor CSS (chemins relatifs) -->
+  <!-- Vendor CSS (strict minimum) -->
   <link href="./assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="./assets/vendor/icofont/icofont.min.css" rel="stylesheet" />
   <link href="./assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
-  <link href="./assets/vendor/venobox/venobox.css" rel="stylesheet" />
   <link href="./assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet" />
-  <link href="./assets/vendor/aos/aos.css" rel="stylesheet" />
 
-  <!-- Template Main CSS -->
-  <link href="./assets/css/style.css" rel="stylesheet" />
-
-  <!-- Fixes pour affichage en iframe (Venobox) -->
+  <!-- Style local (couleurs/accordéons) -->
   <style>
-    :root { --brand:#0a66ff; }
-    /* Neutraliser tout préloader éventuel */
-    #preloader{display:none!important;opacity:0!important;visibility:hidden!important;}
-    /* Bouton GitHub */
+    :root{ --brand:#0a66ff; }
+    body{font-family:"Open Sans",system-ui,-apple-system,Segoe UI,Roboto; color:#223; }
+    .portfolio-details{padding:24px 0 8px;}
+    .portfolio-title{font-weight:700;margin:8px 0 18px;}
+    .aside-card{background:#fff;border:1px solid #e9eef5;border-radius:12px;padding:16px 18px;box-shadow:0 8px 20px rgba(2,21,78,.04)}
     .chip{display:inline-block;padding:.2rem .6rem;border:1px solid rgba(10,102,255,.18);
       background:rgba(10,102,255,.06);color:#1b2a4e;border-radius:999px;font-size:.78rem;margin:0 .25rem .35rem 0}
-    .aside-card{background:#fff;border:1px solid #e9eef5;border-radius:12px;padding:16px 18px;box-shadow:0 8px 20px rgba(2,21,78,.04)}
     .btn-repo{display:inline-flex;align-items:center;gap:.45rem;background:var(--brand);color:#fff!important;border:none;border-radius:10px;
-      padding:.55rem .9rem;font-weight:600;box-shadow:0 10px 18px rgba(10,102,255,.22);transition:transform .12s ease}
-    .btn-repo:hover{transform:translateY(-1px)}
-    .portfolio-details-carousel img{border-radius:12px;box-shadow:0 14px 28px rgba(0,0,0,.08)}
+      padding:.55rem .9rem;font-weight:600;box-shadow:0 10px 18px rgba(10,102,255,.22);text-decoration:none}
+    .btn-repo:hover{filter:brightness(1.05)}
+    .owl-carousel .item img,.portfolio-details-carousel img{border-radius:12px;box-shadow:0 14px 28px rgba(0,0,0,.08)}
     .faq-item{border-bottom:1px solid #edf2f7}
     .question{cursor:pointer;padding:16px 6px;font-weight:600;color:#1f2a44;position:relative}
     .question .arrow{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:22px;height:22px;display:grid;place-items:center;color:var(--brand)}
     .answer{max-height:0;overflow:hidden;transition:max-height .3s ease}
     .answer-visible{max-height:2200px}
-    .question.answer-visible .arrow{transform:translateY(-50%) rotate(180deg)}
     pre,code{background:#0f172a;color:#e5e7eb;border-radius:10px}
     pre{padding:14px 16px;overflow:auto}
     code{padding:2px 6px}
@@ -50,86 +43,65 @@
 
 <body>
 <main id="main">
-  <!-- ======= Portfolio Details ======= -->
   <section id="portfolio-details" class="portfolio-details">
-    <div class="container" data-aos="fade-up">
+    <div class="container">
       <div class="row">
-        <!-- Colonne gauche : carrousel -->
+        <!-- Carrousel -->
         <div class="col-lg-8">
-          <h2 class="portfolio-title text-center" style="color:var(--brand)">
-            Automatisation EKS + Lambda (Terraform) — Free Tier AWS
-          </h2>
-
+          <h2 class="portfolio-title text-center" style="color:var(--brand)">Automatisation EKS + Lambda (Terraform) — Free Tier AWS</h2>
           <div class="owl-carousel portfolio-details-carousel">
-            <!-- Place tes captures dans assets/img/eks/ -->
+            <img src="./assets/img/eks/01_ec2_instance_resume.JPG" class="img-fluid" alt="Résumé instance EC2">
+            <img src="./assets/img/eks/02_ec2_instance_networking.JPG" class="img-fluid" alt="Réseau EC2 / VPC">
+            <img src="./assets/img/eks/03_ec2_storage_monitoring.JPG" class="img-fluid" alt="Stockage / monitoring EC2">
+            <img src="./assets/img/eks/04_eks_cluster_dashboard.JPG" class="img-fluid" alt="Dashboard EKS">
+            <img src="./assets/img/eks/08_cluster_eks_details.JPG" class="img-fluid" alt="Détails Cluster EKS">
+            <img src="./assets/img/eks/09_sous_reseau_vpc.JPG" class="img-fluid" alt="Sous-réseau VPC">
+            <img src="./assets/img/eks/10_vue_globale_sous_reseaux.JPG" class="img-fluid" alt="Vue globale sous-réseaux">
+            <img src="./assets/img/eks/11_cluster_eks_infoeks_vue_generale.JPG" class="img-fluid" alt="Cluster EKS — vue générale">
+            <img src="./assets/img/eks/05_lambda_overview.JPG" class="img-fluid" alt="Aperçu fonction Lambda">
+            <img src="./assets/img/eks/06_lambda_test_event.JPG" class="img-fluid" alt="Test événement Lambda">
+            <img src="./assets/img/eks/07_lambda_handler_configuration.JPG" class="img-fluid" alt="Configuration handler Lambda">
           </div>
         </div>
 
-        <!-- Colonne droite : résumé -->
+        <!-- Résumé -->
         <div class="col-lg-4">
           <div class="aside-card">
-            <h5>Docker / IaC : EKS + Lambda</h5>
-            <p class="mb-2">
-              Déploiement <b>automatisé</b> d’un cluster <b>Kubernetes (EKS)</b> et d’un service
-              <b>serverless (AWS Lambda Java)</b>, orchestré par <b>Terraform</b> depuis une VM <b>EC2</b> (Free Tier).
-              Objectif : une infra reproductible + cleanup pour éviter la facturation.
-            </p>
-
+            <h5>EKS + Lambda orchestrés par Terraform</h5>
+            <p>Déploiement <b>automatisé</b> d’un cluster <b>Kubernetes (EKS)</b> et d’une <b>Lambda Java</b> depuis une VM <b>EC2</b> (Free Tier). Objectif : infra reproductible + cleanup pour éviter la facturation.</p>
             <div class="mb-2">
               <span class="chip">Terraform</span><span class="chip">AWS</span><span class="chip">EC2</span>
               <span class="chip">EKS</span><span class="chip">VPC/Subnets</span><span class="chip">Node Group</span>
-              <span class="chip">IAM</span><span class="chip">Lambda (Java 11)</span><span class="chip">Maven</span>
-              <span class="chip">PowerShell/SSH</span><span class="chip">Troubleshooting</span>
+              <span class="chip">IAM</span><span class="chip">Lambda (Java)</span><span class="chip">Maven</span>
             </div>
-
-            <p class="mb-1"><b>Catégorie :</b> Cloud / DevOps</p>
-            <p class="mb-1"><b>Contexte :</b> Amazon Linux 2 (t2.micro) — PowerShell + clé <code>.pem</code>.</p>
-            <p class="mb-3"><b>Livrables :</b> fichiers <code>.tf</code> (VPC/EKS/IAM), artefacts Java Lambda.</p>
-
-            <a class="btn-repo" href="https://github.com/avisse/activite-1" target="_blank" rel="noopener">
-              <i class="bx bxl-github"></i> Voir le repository GitHub
-            </a>
+            <p class="mb-1"><b>Contexte :</b> Amazon Linux 2 (t2.micro) — SSH PowerShell + clé <code>.pem</code>.</p>
+            <p class="mb-3"><b>Livrables :</b> <code>.tf</code> (VPC/EKS/IAM), artefacts Java, procédures.</p>
+            <a class="btn-repo" href="https://github.com/avisse/activite-1" target="_blank" rel="noopener"><i class="bx bxl-github"></i> Voir le repository GitHub</a>
           </div>
         </div>
       </div>
 
-      <!-- ======= Accordéons ======= -->
-      <div class="row mt-4">
-        <div class="col-lg-12">
-          <!-- Contexte -->
-          <div class="faq-item">
-            <div class="question" onclick="toggleAnswer('ans0', this)">
-              Contexte & objectifs <span class="arrow"><i class="bx bx-chevron-down"></i></span>
-            </div>
-            <div class="answer" id="ans0">
-              <div class="p-2">
-                <p>
-                  Déployer une <b>stack reproductible</b> combinant un <b>cluster EKS</b> et une <b>fonction Lambda Java</b>,
-                  le tout provisionné par <b>Terraform</b> depuis une VM <b>EC2</b> (Free Tier).
-                </p>
-                <ul>
-                  <li><b>Infra as Code :</b> un seul plan Terraform versionné.</li>
-                  <li><b>Fichiers :</b> <code>provider.tf</code>, <code>variables.tf</code>, <code>main.tf</code>, <code>iam.tf</code>, <code>outputs.tf</code>.</li>
-                  <li><b>Coûts :</b> nettoyage strict (Node Groups → Cluster → EC2).</li>
-                </ul>
-              </div>
-            </div>
-          </div>
+      <!-- Accordéons -->
+      <div class="row mt-4"><div class="col-lg-12">
 
-          <!-- Architecture & Terraform -->
-          <div class="faq-item">
-            <div class="question" onclick="toggleAnswer('ans1', this)">
-              Architecture & Terraform <span class="arrow"><i class="bx bx-chevron-down"></i></span>
-            </div>
-            <div class="answer" id="ans1">
-              <div class="p-2">
-                <ul>
-                  <li><b>EC2</b> (poste d’admin) : Docker + Terraform.</li>
-                  <li><b>VPC</b> + subnets publics + routes + SG.</li>
-                  <li><b>EKS</b> : cluster + <b>Node Group</b> IP publique.</li>
-                  <li><b>IAM</b> : rôles/policies pour EKS/Nodes & Lambda.</li>
-                </ul>
+        <!-- Contexte -->
+        <div class="faq-item">
+          <div class="question" onclick="toggleAnswer('a0', this)">Contexte & objectifs <span class="arrow"><i class="bx bx-chevron-down"></i></span></div>
+          <div class="answer" id="a0"><div class="p-2">
+            <p>Combiner un <b>cluster EKS</b> et une <b>Lambda Java</b>, le tout provisionné par <b>Terraform</b> depuis une VM <b>EC2</b> (Free Tier). Fichiers : <code>provider.tf</code>, <code>variables.tf</code>, <code>main.tf</code>, <code>iam.tf</code>, <code>outputs.tf</code>.</p>
+          </div></div>
+        </div>
 
+        <!-- Architecture & Terraform -->
+        <div class="faq-item">
+          <div class="question" onclick="toggleAnswer('a1', this)">Architecture & Terraform <span class="arrow"><i class="bx bx-chevron-down"></i></span></div>
+          <div class="answer" id="a1"><div class="p-2">
+            <ul>
+              <li><b>EC2</b> (poste d’admin) : Docker + Terraform.</li>
+              <li><b>VPC</b> + subnets publics + routes + SG.</li>
+              <li><b>EKS</b> : cluster + <b>Node Group</b> (IP publique).</li>
+              <li><b>IAM</b> : rôles/policies pour EKS/Nodes & Lambda.</li>
+            </ul>
 <pre><code class="language-bash"># EC2 : outils
 sudo yum update -y
 sudo yum install -y docker
@@ -145,22 +117,15 @@ terraform init
 terraform plan
 terraform apply
 </code></pre>
+            <p><b>Correctif Node Group (CREATE_FAILED)</b> :</p>
+<pre><code>map_public_ip_on_launch = true</code></pre>
+          </div></div>
+        </div>
 
-                <p class="mb-2"><b>Correctif Node Group (CREATE_FAILED)</b> :</p>
-<pre><code>// Dans les subnets publics
-map_public_ip_on_launch = true
-</code></pre>
-              </div>
-            </div>
-          </div>
-
-          <!-- Fichiers du projet -->
-          <div class="faq-item">
-            <div class="question" onclick="toggleAnswer('ans2', this)">
-              Fichiers du projet (.tf & Java) <span class="arrow"><i class="bx bx-chevron-down"></i></span>
-            </div>
-            <div class="answer" id="ans2">
-              <div class="p-2">
+        <!-- Fichiers -->
+        <div class="faq-item">
+          <div class="question" onclick="toggleAnswer('a2', this)">Fichiers du projet (.tf & Java) <span class="arrow"><i class="bx bx-chevron-down"></i></span></div>
+          <div class="answer" id="a2"><div class="p-2">
 <pre><code>infra/
 ├─ provider.tf       # Region, provider AWS
 ├─ variables.tf      # Noms, versions, CIDR, tailles…
@@ -171,25 +136,20 @@ hello-lambda/
 ├─ pom.xml
 ├─ src/main/java/com/infoline/lambda/App.java
 </code></pre>
-
 <p><b>provider.tf</b></p>
 <pre><code>provider "aws" { region = var.aws_region }</code></pre>
-
 <p><b>variables.tf</b></p>
 <pre><code>variable "aws_region"   { default = "eu-west-3" }
 variable "cluster_name" { default = "info-eks-cluster" }
 variable "vpc_cidr"     { default = "172.31.0.0/16" }
 </code></pre>
-
 <p><b>Lambda — App.java</b></p>
-<pre><code class="language-java">public class App implements com.amazonaws.services.lambda.runtime.RequestHandler&lt;String, String&gt; {
-  @Override
-  public String handleRequest(String input, com.amazonaws.services.lambda.runtime.Context context) {
+<pre><code>public class App implements com.amazonaws.services.lambda.runtime.RequestHandler&lt;String, String&gt; {
+  @Override public String handleRequest(String input, com.amazonaws.services.lambda.runtime.Context context) {
     return "Bonjour depuis AWS Lambda, tu m’as dit : " + input;
   }
 }
 </code></pre>
-
 <p><b>pom.xml</b> (extrait)</p>
 <pre><code>&lt;dependency&gt;
   &lt;groupId&gt;com.amazonaws&lt;/groupId&gt;
@@ -203,93 +163,75 @@ variable "vpc_cidr"     { default = "172.31.0.0/16" }
   &lt;configuration&gt;&lt;source&gt;1.8&lt;/source&gt;&lt;target&gt;1.8&lt;/target&gt;&lt;/configuration&gt;
 &lt;/plugin&gt;
 </code></pre>
-              </div>
-            </div>
-          </div>
+          </div></div>
+        </div>
 
-          <!-- Déploiement & tests -->
-          <div class="faq-item">
-            <div class="question" onclick="toggleAnswer('ans3', this)">
-              Déploiement & tests (EKS + Lambda) <span class="arrow"><i class="bx bx-chevron-down"></i></span>
-            </div>
-            <div class="answer" id="ans3">
-              <div class="p-2">
-                <p><b>EKS</b> : <code>terraform apply</code> → VPC/Subnets/Routes/SG + EKS + Node Group, santé OK.</p>
+        <!-- Déploiement & tests -->
+        <div class="faq-item">
+          <div class="question" onclick="toggleAnswer('a3', this)">Déploiement & tests (EKS + Lambda) <span class="arrow"><i class="bx bx-chevron-down"></i></span></div>
+          <div class="answer" id="a3"><div class="p-2">
 <pre><code class="language-bash"># Lambda côté EC2
 sudo yum install -y maven
 mvn -f hello-lambda/pom.xml clean package
 # Artefact: hello-lambda/target/hello-lambda-1.0-SNAPSHOT.jar
 # Runtime: Java 11 | Handler: com.infoline.lambda.App::handleRequest
 </code></pre>
-              </div>
-            </div>
-          </div>
-
-          <!-- Problèmes & solutions -->
-          <div class="faq-item">
-            <div class="question" onclick="toggleAnswer('ans4', this)">
-              Problèmes rencontrés & solutions <span class="arrow"><i class="bx bx-chevron-down"></i></span>
-            </div>
-            <div class="answer" id="ans4">
-              <div class="p-2">
-                <table class="table table-sm">
-                  <thead><tr><th style="width:45%">Problème</th><th>Solution</th></tr></thead>
-                  <tbody>
-                    <tr><td><b>CREATE_FAILED</b> sur Node Group</td><td>Activer <code>map_public_ip_on_launch</code> sur subnets publics.</td></tr>
-                    <tr><td>Ressources “fantômes” / coûts</td><td>Suppression Node Groups / Clusters depuis la console, puis <code>terraform destroy</code>.</td></tr>
-                    <tr><td>Maven: <i>source release 5 is no longer supported</i></td><td>Configurer <b>maven-compiler-plugin</b> en 1.8/11.</td></tr>
-                    <tr><td>Handler Lambda non reconnu</td><td>Vérifier le package + <code>com.infoline.lambda.App::handleRequest</code>.</td></tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-
-          <!-- Coûts -->
-          <div class="faq-item">
-            <div class="question" onclick="toggleAnswer('ans5', this)">
-              Nettoyage & maîtrise des coûts <span class="arrow"><i class="bx bx-chevron-down"></i></span>
-            </div>
-            <div class="answer" id="ans5">
-              <div class="p-2">
-                <ul>
-                  <li><code>terraform destroy</code> après avoir supprimé Node Groups puis Cluster.</li>
-                  <li>Arrêter/terminer la VM EC2 si inutilisée; surveiller la Billing console.</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
+          </div></div>
         </div>
-      </div>
+
+        <!-- Problèmes & solutions -->
+        <div class="faq-item">
+          <div class="question" onclick="toggleAnswer('a4', this)">Problèmes rencontrés & solutions <span class="arrow"><i class="bx bx-chevron-down"></i></span></div>
+          <div class="answer" id="a4"><div class="p-2">
+            <table class="table table-sm">
+              <thead><tr><th style="width:45%">Problème</th><th>Solution</th></tr></thead>
+              <tbody>
+                <tr><td><b>CREATE_FAILED</b> sur Node Group</td><td>Activer <code>map_public_ip_on_launch</code> sur les subnets publics.</td></tr>
+                <tr><td>Ressources “fantômes” / coûts</td><td>Supprimer Node Groups/Clusters en console puis <code>terraform destroy</code>.</td></tr>
+                <tr><td>Maven : <i>source release 5 is no longer supported</i></td><td>Configurer <b>maven-compiler-plugin</b> en 1.8/11.</td></tr>
+                <tr><td>Handler Lambda non reconnu</td><td>Vérifier le package : <code>com.infoline.lambda.App::handleRequest</code>.</td></tr>
+              </tbody>
+            </table>
+          </div></div>
+        </div>
+
+        <!-- Coûts -->
+        <div class="faq-item">
+          <div class="question" onclick="toggleAnswer('a5', this)">Nettoyage & maîtrise des coûts <span class="arrow"><i class="bx bx-chevron-down"></i></span></div>
+          <div class="answer" id="a5"><div class="p-2">
+            <ul>
+              <li><code>terraform destroy</code> après suppression des Node Groups puis du Cluster.</li>
+              <li>Terminer la VM EC2 si inutilisée et surveiller Billing.</li>
+            </ul>
+          </div></div>
+        </div>
+
+      </div></div>
     </div>
   </section>
 </main>
 
-<!-- (Pas de back-to-top / pas de preloader) -->
-
-<!-- Vendor JS -->
+<!-- Vendor JS (strict minimum) -->
 <script src="./assets/vendor/jquery/jquery.min.js"></script>
 <script src="./assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="./assets/vendor/jquery.easing/jquery.easing.min.js"></script>
-<script src="./assets/vendor/venobox/venobox.min.js"></script>
-<script src="./assets/vendor/waypoints/jquery.waypoints.min.js"></script>
-<script src="./assets/vendor/counterup/counterup.min.js"></script>
 <script src="./assets/vendor/owl.carousel/owl.carousel.min.js"></script>
-<script src="./assets/vendor/typed.js/typed.min.js"></script>
-<script src="./assets/vendor/aos/aos.js"></script>
-
-<!-- Template JS -->
-<script src="./assets/js/main.js"></script>
 
 <script>
+  // Init carrousel (sans dépendre de main.js du template)
+  $(function(){
+    $('.portfolio-details-carousel').owlCarousel({
+      autoplay: true, autoplayTimeout: 3500, smartSpeed: 600,
+      items: 1, loop: true, dots: true, margin: 10
+    });
+  });
+
   // Accordéon
   function toggleAnswer(id, el){
     const ans = document.getElementById(id);
-    const open = ans.classList.contains('answer-visible');
+    const isOpen = ans.classList.contains('answer-visible');
     document.querySelectorAll('.answer').forEach(a=>a.classList.remove('answer-visible'));
     document.querySelectorAll('.question').forEach(q=>q.classList.remove('answer-visible'));
-    if(!open){ ans.classList.add('answer-visible'); el.classList.add('answer-visible'); }
+    if(!isOpen){ ans.classList.add('answer-visible'); el.classList.add('answer-visible'); }
   }
 </script>
 </body>
