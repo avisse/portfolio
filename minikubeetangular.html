@@ -5,24 +5,18 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>Activité 2 — Spring Boot + Docker + Kubernetes (Minikube) + Angular</title>
 
+  
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon" />
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
+  <link href="./assets/img/favicon.png" rel="icon" />
+  <link href="./assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
 
-  <!-- Google Fonts -->
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Poppins:300,400,500,600,700" rel="stylesheet" />
 
-  <!-- Vendor CSS -->
-<link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-<link href="../assets/vendor/icofont/icofont.min.css" rel="stylesheet" />
-<link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
-<link href="../assets/vendor/venobox/venobox.css" rel="stylesheet" />
-<link href="../assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet" />
-<link href="../assets/vendor/aos/aos.css" rel="stylesheet" />
-<link href="../assets/css/style.css" rel="stylesheet" />
-
-  <!-- Template Main CSS -->
-  <link href="assets/css/style.css" rel="stylesheet" />
+  <!-- Vendor CSS (strict minimum) -->
+  <link href="./assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="./assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
+  <link href="./assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet" />
 
   <style>
     /* Accent & chips (même style que la page EKS) */
@@ -404,34 +398,27 @@ minikube delete</code></pre>
 <a href="#" class="back-to-top"><i class="bx bx-up-arrow-alt"></i></a>
 <div id="preloader"></div>
 
-<!-- Vendor JS -->
-<script src="../assets/vendor/jquery/jquery.min.js"></script>
-<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../assets/vendor/jquery.easing/jquery.easing.min.js"></script>
-<script src="../assets/vendor/venobox/venobox.min.js"></script>
-<script src="../assets/vendor/waypoints/jquery.waypoints.min.js"></script>
-<script src="../assets/vendor/counterup/counterup.min.js"></script>
-<script src="../assets/vendor/owl.carousel/owl.carousel.min.js"></script>
-<script src="../assets/vendor/typed.js/typed.min.js"></script>
-<script src="../assets/vendor/aos/aos.js"></script>
-<script src="../assets/js/main.js"></script>
+<!-- Vendor JS (strict minimum) -->
+<script src="./assets/vendor/jquery/jquery.min.js"></script>
+<script src="./assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="./assets/vendor/owl.carousel/owl.carousel.min.js"></script>
 
-<!-- Template JS -->
-<script src="assets/js/main.js"></script>
 <script>
-  window.addEventListener('DOMContentLoaded', () => {
-    const p = document.getElementById('preloader');
-    if (p) p.remove();
+  // Init carrousel (sans dépendre de main.js du template)
+  $(function(){
+    $('.portfolio-details-carousel').owlCarousel({
+      autoplay: true, autoplayTimeout: 3500, smartSpeed: 600,
+      items: 1, loop: true, dots: true, margin: 10
+    });
   });
-</script>
-<script>
-  // Accordéons (même logique que la page EKS)
+
+  // Accordéon
   function toggleAnswer(id, el){
     const ans = document.getElementById(id);
-    const open = ans.classList.contains('answer-visible');
+    const isOpen = ans.classList.contains('answer-visible');
     document.querySelectorAll('.answer').forEach(a=>a.classList.remove('answer-visible'));
     document.querySelectorAll('.question').forEach(q=>q.classList.remove('answer-visible'));
-    if(!open){ ans.classList.add('answer-visible'); el.classList.add('answer-visible'); }
+    if(!isOpen){ ans.classList.add('answer-visible'); el.classList.add('answer-visible'); }
   }
 </script>
 </body>
