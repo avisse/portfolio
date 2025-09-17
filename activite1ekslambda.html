@@ -1,127 +1,477 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>Steve Avisse</title>
-  <meta content="" name="descriptison">
-  <meta content="" name="keywords">
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Activité 1 — EKS + Lambda (Terraform) | Steve Avisse</title>
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="assets/img/favicon.png" rel="icon" />
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Poppins:300,400,500,600,700" rel="stylesheet" />
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/icofont/icofont.min.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/venobox/venobox.css" rel="stylesheet">
-  <link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <!-- Vendor CSS -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="assets/vendor/icofont/icofont.min.css" rel="stylesheet" />
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
+  <link href="assets/vendor/venobox/venobox.css" rel="stylesheet" />
+  <link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet" />
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet" />
 
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+  <!-- Template Main CSS -->
+  <link href="assets/css/style.css" rel="stylesheet" />
 
-  <!-- =======================================================
-  * Template Name: MyResume - v2.1.0
-  * Template URL: https://bootstrapmade.com/free-html-bootstrap-template-my-resume/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+  <!-- Styles locaux (même identité visuelle que Metabase) -->
+  <style>
+    :root{ --brand:#0a66ff; --ink:#0b1420; }
+    .btn-repo{
+      display:inline-flex; align-items:center; gap:.45rem;
+      background:var(--brand); color:#fff!important; border:none; border-radius:10px;
+      padding:.55rem .9rem; font-weight:600; box-shadow:0 10px 18px rgba(10,102,255,.22);
+      transition:transform .12s ease;
+    }
+    .btn-repo:hover{ transform:translateY(-1px); }
+    .chip{
+      display:inline-block; padding:.2rem .6rem; border:1px solid rgba(10,102,255,.18);
+      background:rgba(10,102,255,.06); color:#1b2a4e; border-radius:999px; font-size:.78rem; margin:0 .25rem .35rem 0;
+    }
+    .aside-card{
+      background:#fff; border:1px solid #e9eef5; border-radius:12px; padding:16px 18px; box-shadow:0 8px 20px rgba(2,21,78,.04);
+    }
+    .aside-card h5{ font-weight:600; color:#334; }
+    .kicker{ color:#6b7a90; font-size:.95rem; }
+
+    /* Accordéons */
+    .faq-item{ border-bottom:1px solid #edf2f7; }
+    .question{
+      cursor:pointer; padding:16px 6px; font-weight:600; color:#1f2a44; position:relative;
+    }
+    .question .arrow{
+      position:absolute; right:8px; top:50%; transform:translateY(-50%);
+      width:22px; height:22px; display:grid; place-items:center; color:var(--brand); border-radius:50%;
+    }
+    .answer{ max-height:0; overflow:hidden; transition:max-height .3s ease; }
+    .answer-visible{ max-height:2400px; }
+    .question.answer-visible .arrow{ transform:translateY(-50%) rotate(180deg); }
+
+    /* Carousel */
+    .portfolio-details-carousel img{ border-radius:12px; box-shadow:0 14px 28px rgba(0,0,0,.08); }
+
+    /* Code blocks */
+    pre, code{ background:#0f172a; color:#e5e7eb; border-radius:10px; }
+    pre{ padding:14px 16px; overflow:auto; }
+    code{ padding:2px 6px; }
+  </style>
 </head>
 
 <body>
+<main id="main">
+  <!-- ======= Portfolio Details ======= -->
+  <section id="portfolio-details" class="portfolio-details">
+    <div class="container" data-aos="fade-up">
 
-  <main id="main">
+      <div class="row">
+        <!-- Colonne gauche : carrousel -->
+        <div class="col-lg-8">
+          <h2 class="portfolio-title" style="text-align:center; color:var(--brand);">
+            Automatisation EKS + Lambda (Terraform) — Free Tier AWS
+          </h2>
 
-    <!-- ======= Portfolio Details ======= -->
-    <section id="portfolio-details" class="portfolio-details">
-      <div class="container" data-aos="fade-up">
-
-        <div class="row">
-
-          <div class="col-lg-8">
-            <h2 class="portfolio-title"><strong>Sécurité Renforcée des Cartes à Puce : Analyse Approfondie de l'Architecture, des Menaces et des Contremesures</strong></h2>
-            <div class="owl-carousel portfolio-details-carousel">
-              <img src="assets/img/securitecartepuce04.jpg" class="img-fluid" alt="">
-              <img src="assets/img/securitecartepuce03.jpg" class="img-fluid" alt="">
-              <img src="assets/img/securitecartepuce02.jpg" class="img-fluid" alt="">
-            </div>
+          <div class="owl-carousel portfolio-details-carousel">
+            <!-- Place tes captures dans assets/img/eks/ (noms ci-dessous) -->
+            <img src="assets/img/eks/01_ec2_instance_resume.JPG" class="img-fluid" alt="Résumé instance EC2">
+            <img src="assets/img/eks/02_ec2_instance_networking.JPG" class="img-fluid" alt="Réseau EC2 / VPC">
+            <img src="assets/img/eks/03_ec2_storage_monitoring.JPG" class="img-fluid" alt="Stockage / monitoring EC2">
+            <img src="assets/img/eks/04_eks_cluster_dashboard.JPG" class="img-fluid" alt="Dashboard EKS">
+            <img src="assets/img/eks/08_cluster_eks_details.JPG" class="img-fluid" alt="Détails Cluster EKS">
+            <img src="assets/img/eks/09_sous_reseau_vpc.JPG" class="img-fluid" alt="Sous-réseau VPC">
+            <img src="assets/img/eks/10_vue_globale_sous_reseaux.JPG" class="img-fluid" alt="Vue globale sous-réseaux">
+            <img src="assets/img/eks/11_cluster_eks_infoeks_vue_generale.JPG" class="img-fluid" alt="Cluster EKS — vue générale">
+            <img src="assets/img/eks/05_lambda_overview.JPG" class="img-fluid" alt="Aperçu fonction Lambda">
+            <img src="assets/img/eks/06_lambda_test_event.JPG" class="img-fluid" alt="Test événement Lambda">
+            <img src="assets/img/eks/07_lambda_handler_configuration.JPG" class="img-fluid" alt="Configuration handler Lambda">
           </div>
-
-          <div class="col-lg-4 portfolio-info">
-            <h3><strong>Naviguer à travers les Complexités : De la Robustesse des Composants à la Protection Contre les Attaques Avancées</strong></h3>
-            <ul>
-              <li><strong>Categorie</strong>: Memoire d'intégration au CNAM : Conservatoire national des arts et métiers </li>
-              <li><strong>Pour: </strong>: Conservatoire national des arts et métiers </li>
-              <li><strong>Sujet: </strong>: Le sujet de ce mémoire s'articule autour de la sécurité des cartes à puce, englobant une analyse approfondie de leur architecture, de leur fonctionnement, et des divers types d'attaques envisageables sur leur matériel. Un examen méticuleux a été entrepris dans ce domaine pour démystifier la complexité inhérente aux cartes à puce.</li>
-               <p><a href="assets/img/memoiresteve.pdf"  class="btn btn-primary py-3 px-3"> Mon mémoire </a></p>
-            </ul>
-            
-
-           
-            
-            </div>
-
-          <div class="col-lg-13 portfolio-info">
-            <h2 style="color: #007bff";class="portfolio-title">Résumé de l'Étude sur la Sécurité des Cartes à Puce </h2>
-        <p><strong>Compte tenu des nombreux domaines sensibles de l'utilisation des cartes à puce (banque, médical, téléphone),</strong> certaines recherches se sont concentrées sur la sécurité et les attaques possibles sur ces appareils, ce qui constitue le cœur de ce mémoire. En effet, au cours de ces dernières années, des attaques de plus en plus sophistiquées ont été développées pour extraire des données sensibles et perturber les fonctions prévues des cartes.</p>
-
-<p>Tout au long de ce mémoire, nous avons exploré en détail l'<strong>architecture physique des cartes à puce</strong> pour mieux comprendre les vulnérabilités lors d'<strong>attaques physiques</strong>. Nous avons également fourni une intuition nécessaire pour comprendre les objectifs des attaquants grâce à ces attaques.</p>
-
-<p>Pour ce faire, nous avons exposé le <strong>fonctionnement des cartes à puce</strong>, couvrant leur communication et les composants matériels de l'architecture, mettant en relief l'aspect fonctionnel des considérations en sécurité et soulignant la nécessité d'exprimer des <strong>garanties de sécurité</strong>. En effet, les composants de sécurité tels que les cartes à puce sont des types spécifiques de matériel qui fournissent des attributs de sécurité.</p>
-
-<p>Pour garantir que ces fonctionnalités contre un large éventail d’attaquants puissants, des règles strictes ont été adoptées, telles que des <strong>normes</strong> ou des spécifications communes.</p>
-
-<p>Des laboratoires dédiés, tels que les CESTI, jouent un rôle crucial dans l'évaluation de la sécurité de ces composants dans le cadre de cette réglementation. Une partie de cette évaluation consiste à déterminer la robustesse des composants en utilisant un équipement dédié pour prévenir différentes attaques (lasers, injecteur électromagnétique). L'implémentation de ce mémoire s'est particulièrement intéressée à la protection des cartes à puce par la <strong>standardisation, les normes et la certification</strong>. Mais il faut retenir que les composants de sécurité, parce qu’ils contiennent des informations confidentielles, font l’objet d’attaques.</p>
-
-<p>Celles-ci tentent généralement de violer la confidentialité, l'intégrité ou l'authenticité des données protégées par des algorithmes cryptographiques intégrés à ces composants. Les <strong>attaques dites matérielles ou physiques</strong> exploitent les faiblesses de ces algorithmes dans la mise en œuvre matérielle.</p>
-
-<p>Je me suis donc intéressé aux <strong>différentes attaques sur les composants</strong> qui protègent des informations confidentielles, parmi ces attaques, celles dites par <strong>« canaux cachés » (« Side Channel Attacks »</strong>), qui sont particulièrement efficaces : elles utilisent la corrélation qui existe entre les données traitées (dont celles qui sont sensibles) et la consommation, le rayonnement électromagnétique ou le temps de réponse du composant.</p>
-
-<p>Un autre type d'attaques, les <strong>« injections de fautes »</strong>, consiste à modifier délibérément le fonctionnement du circuit pour contourner les protections logicielles et matérielles destinées aux informations sensibles. Par exemple, le fonctionnement du composant peut être affecté grâce à l'éclairage laser, modifiant la tension d'alimentation ou la fréquence d'horloge. Un troisième type d'attaques, plus difficile à mettre en œuvre, consiste à analyser la conception de la puce à l'aide de procédés invasifs tels que l'abrasion, la gravure chimique, le laser, le SEM, etc.</p>
-
-<p>Détectez ensuite le signal par lequel passent les informations secrètes (notamment en raison du faisceau d'ions focalisé). Face à l’ensemble de ses attaques des protections qui ont été proposées ces dernières années pour contrer celle-ci. Deux types de protections sont principalement mis en œuvre aux <strong>attaques par injection de faute</strong>. La première consiste à détecter les tentatives d'injection de fautes, puis à appliquer une stratégie de réponse appropriée lorsqu'une attaque se produit.</p>
-
-<p>Pour cette raison, des capteurs et des mécanismes de détection d'erreur sont communément proposés pour détecter les changements anormaux dans l'environnement du circuit. Les réactions vont de la simple coupure de la communication à l'effacement complet des informations stockées dans la mémoire. Le deuxième type de protection vise à augmenter la robustesse du circuit aux différentes attaques. À cette fin, des méthodes de correction des erreurs (également basées sur la redondance) et des équipements techniques tels que des couvercles métalliques et des filtres sont utilisés.</p>
-
-<p>Les contre-mesures proposées pour contrer les attaques par canaux cachés. Il s’agit soit d’ajouter du bruit sur les canaux soit de réduire le signal informatif. Enfin viens, les <strong>contre mesure matérielles</strong> avec plusieurs solutions proposées pour éviter la réalisation d’attaques.</p>
-
-           
-
-          </div>
-
         </div>
 
+        <!-- Colonne droite : résumé + tags + lien repo -->
+        <div class="col-lg-4">
+          <div class="aside-card">
+            <h5>Cloud IaC : EKS + Lambda</h5>
+            <p class="kicker">
+              Déploiement <b>automatisé</b> d’un cluster <b>Kubernetes (EKS)</b> et d’une fonction
+              <b>AWS Lambda (Java)</b> grâce à <b>Terraform</b>, opéré depuis une VM <b>EC2</b> (Free Tier).
+              Objectif : une <b>infra reproductible</b> + un service serverless simple, avec <b>cleanup</b> pour maîtriser la facturation.
+            </p>
+
+            <div class="mb-2">
+              <span class="chip">Terraform</span>
+              <span class="chip">AWS</span>
+              <span class="chip">EC2</span>
+              <span class="chip">EKS</span>
+              <span class="chip">VPC/Subnets/IGW</span>
+              <span class="chip">Node Group</span>
+              <span class="chip">IAM</span>
+              <span class="chip">Lambda (Java 8/11)</span>
+              <span class="chip">Maven</span>
+              <span class="chip">PowerShell/SSH</span>
+              <span class="chip">Troubleshooting</span>
+            </div>
+
+            <p class="mb-1"><b>Catégorie :</b> Cloud / DevOps</p>
+            <p class="mb-1"><b>Contexte :</b> Amazon Linux 2 (t2.micro) • connexion SSH via <code>.pem</code>.</p>
+            <p class="mb-3"><b>Livrables :</b> fichiers <code>.tf</code>, artefacts Java, captures & guide.</p>
+
+            <!-- Modifie le lien vers le bon repo si besoin -->
+            <a class="btn-repo" href="https://github.com/avisse/activite-1" target="_blank" rel="noopener">
+              <i class="bx bxl-github"></i> Voir le repository GitHub
+            </a>
+          </div>
+        </div>
       </div>
-    </section><!-- End Portfolio Details -->
 
-  </main><!-- End #main -->
+      <!-- ======= Accordéons ======= -->
+      <div class="row mt-4">
+        <div class="col-lg-12">
 
-  <a href="#" class="back-to-top"><i class="bx bx-up-arrow-alt"></i></a>
-  <div id="preloader"></div>
+          <!-- 1. Contexte & objectifs -->
+          <div class="faq-item">
+            <div class="question" onclick="toggleAnswer('a0', this)">
+              Contexte & objectifs
+              <span class="arrow"><i class="bx bx-chevron-down"></i></span>
+            </div>
+            <div class="answer" id="a0">
+              <div class="p-2">
+                <p>
+                  <b>Objectif général :</b> mettre en place une <b>infrastructure Cloud complète</b> avec deux briques :
+                  <b>un cluster Kubernetes (EKS)</b> et <b>une fonction serverless (AWS Lambda, Java)</b>.
+                  L’activité m’a permis de pratiquer l’<b>Infrastructure as Code</b> avec Terraform, de consolider
+                  les notions réseau (VPC, subnets, SG) et de comprendre la logique <em>serverless</em> côté AWS.
+                </p>
+              </div>
+            </div>
+          </div>
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/jquery/jquery.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/vendor/waypoints/jquery.waypoints.min.js"></script>
-  <script src="assets/vendor/counterup/counterup.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/venobox/venobox.min.js"></script>
-  <script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
-  <script src="assets/vendor/typed.js/typed.min.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
+          <!-- 2. Architecture & principes -->
+          <div class="faq-item">
+            <div class="question" onclick="toggleAnswer('a1', this)">
+              Architecture & principes d’implémentation
+              <span class="arrow"><i class="bx bx-chevron-down"></i></span>
+            </div>
+            <div class="answer" id="a1">
+              <div class="p-2">
+                <ul>
+                  <li><b>EC2</b> : poste d’administration (Amazon Linux 2) pour installer Docker & Terraform.</li>
+                  <li><b>VPC custom</b> (CIDR 10.0.0.0/16) + <b>subnets publics</b> + <b>IGW</b> + <b>tables de routage</b>.</li>
+                  <li><b>EKS</b> : cluster + <b>Node Group</b> avec adresses publiques (voir correctif ci-dessous).</li>
+                  <li><b>IAM</b> : rôles/policies pour EKS, nodes et Lambda (principe du moindre privilège).</li>
+                  <li><b>Lambda Java</b> : artefact <code>.jar</code> (Maven) déployé et testé via la console.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
 
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+          <!-- 3. Étapes détaillées (EC2 → outils → projet Terraform) -->
+          <div class="faq-item">
+            <div class="question" onclick="toggleAnswer('a2', this)">
+              Étapes 1–3 : EC2, préparation des outils & projet Terraform
+              <span class="arrow"><i class="bx bx-chevron-down"></i></span>
+            </div>
+            <div class="answer" id="a2">
+              <div class="p-2">
+                <h6 class="mb-2">1) Création de l’instance EC2</h6>
+                <ul>
+                  <li>Type : <b>t2.micro</b> (Free Tier) • accès SSH via <code>.pem</code> depuis PowerShell.</li>
+                  <li>Incidents : redémarrages inattendus (Auto Scaling / Node Group EKS) et <b>facturation</b> malgré l’inactivité.</li>
+                  <li>Remèdes : suppression manuelle des Node Groups & clusters résiduels, arrêt propre de l’EC2.</li>
+                </ul>
 
+                <h6 class="mt-3 mb-2">2) Installation des outils</h6>
+                <pre><code class="language-bash"># Mises à jour + Docker
+sudo yum update -y
+sudo yum install -y docker
+sudo systemctl start docker
+sudo systemctl enable docker
+
+# Terraform (Amazon Linux 2)
+sudo yum install -y yum-utils
+sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+sudo yum install terraform -y
+</code></pre>
+
+                <h6 class="mt-3 mb-2">3) Squelettes Terraform</h6>
+                <p>Arborescence <code>infra/</code> :</p>
+                <pre><code>infra/
+├─ provider.tf       # Provider AWS (région)
+├─ variables.tf      # Noms, CIDR, versions, tailles...
+├─ main.tf           # VPC/Subnets/Routes/SG + EKS + Node Group
+├─ iam.tf            # Rôles/policies EKS, nodes, Lambda
+└─ outputs.tf        # Valeurs exportées (endpoint, OIDC...)
+</code></pre>
+
+                <p><b>provider.tf</b></p>
+                <pre><code>provider "aws" {
+  region = "eu-west-3"
+}
+</code></pre>
+
+                <p class="mb-1"><b>variables.tf</b> (extraits)</p>
+                <pre><code>variable "region"       { default = "eu-west-3" }
+variable "cluster_name" { default = "infoline-eks-cluster" }
+</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. Déploiement Terraform -->
+          <div class="faq-item">
+            <div class="question" onclick="toggleAnswer('a3', this)">
+              Étape 4 : Déploiement Terraform (init → plan → apply)
+              <span class="arrow"><i class="bx bx-chevron-down"></i></span>
+            </div>
+            <div class="answer" id="a3">
+              <div class="p-2">
+                <pre><code class="language-bash">terraform init
+terraform plan
+terraform apply
+</code></pre>
+                <p class="mb-2">Ressources créées :</p>
+                <ul>
+                  <li>VPC (10.0.0.0/16) + subnets publics + IGW + routes.</li>
+                  <li>EKS + Node Group (connectivité publique pour rejoindre le cluster).</li>
+                </ul>
+
+                <p class="mb-2"><b>Erreur rencontrée</b> : <i>CREATE_FAILED</i> (nodes injoignables car pas d’IP publique).</p>
+                <p class="mb-1"><b>Correctif</b> — forcer l’attribution d’IP publique sur les subnets :</p>
+                <pre><code># Dans la ressource subnet (main.tf)
+map_public_ip_on_launch = true
+</code></pre>
+
+                <p class="mt-3 mb-1"><b>Outputs utiles</b> (exemples) :</p>
+                <pre><code>output "cluster_name"     { value = aws_eks_cluster.main.name }
+output "cluster_endpoint" { value = aws_eks_cluster.main.endpoint }
+output "oidc_issuer"      { value = aws_eks_cluster.main.identity[0].oidc[0].issuer }
+</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. Lambda Java -->
+          <div class="faq-item">
+            <div class="question" onclick="toggleAnswer('a4', this)">
+              Activité 1 — Partie 2 : Fonction Lambda (Java)
+              <span class="arrow"><i class="bx bx-chevron-down"></i></span>
+            </div>
+            <div class="answer" id="a4">
+              <div class="p-2">
+                <h6 class="mb-2">1) Pré-requis Java & Maven sur EC2</h6>
+                <pre><code class="language-bash">sudo amazon-linux-extras enable corretto8
+sudo yum install -y java-1.8.0-amazon-corretto-devel
+sudo yum install -y maven
+</code></pre>
+
+                <h6 class="mt-3 mb-2">2) Code Java (handler)</h6>
+                <pre><code class="language-java">package com.example;
+import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.RequestHandler;
+
+public class App implements RequestHandler&lt;String, String&gt; {
+  @Override
+  public String handleRequest(String input, Context context) {
+    return "Hello, " + input + " from Lambda!";
+  }
+}
+</code></pre>
+
+                <h6 class="mt-3 mb-2">3) <code>pom.xml</code> (dépendance + version Java)</h6>
+                <pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;com.amazonaws&lt;/groupId&gt;
+  &lt;artifactId&gt;aws-lambda-java-core&lt;/artifactId&gt;
+  &lt;version&gt;1.2.1&lt;/version&gt;
+&lt;/dependency&gt;
+
+&lt;build&gt;
+  &lt;plugins&gt;
+    &lt;plugin&gt;
+      &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+      &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+      &lt;version&gt;3.8.1&lt;/version&gt;
+      &lt;configuration&gt;
+        &lt;source&gt;1.8&lt;/source&gt;
+        &lt;target&gt;1.8&lt;/target&gt;
+      &lt;/configuration&gt;
+    &lt;/plugin&gt;
+  &lt;/plugins&gt;
+&lt;/build&gt;
+</code></pre>
+
+                <h6 class="mt-3 mb-2">4) Build & déploiement</h6>
+                <pre><code class="language-bash"># Build
+mvn package
+# Artefact généré : target/hello-lambda-1.0-SNAPSHOT.jar
+
+# Déploiement via console Lambda
+# Runtime : Java 8 (Corretto) ou Java 11
+# Handler : com.example.App::handleRequest
+</code></pre>
+
+                <p>Test console : JSON simple → réponse <i>"Hello, Steve from Lambda!"</i> conforme.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. Problèmes & solutions -->
+          <div class="faq-item">
+            <div class="question" onclick="toggleAnswer('a5', this)">
+              Problèmes rencontrés & solutions
+              <span class="arrow"><i class="bx bx-chevron-down"></i></span>
+            </div>
+            <div class="answer" id="a5">
+              <div class="p-2">
+                <table class="table table-sm">
+                  <thead><tr><th style="width:45%">Problème</th><th>Solution</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td><b>CREATE_FAILED</b> sur le Node Group (nodes injoignables)</td>
+                      <td>Ajouter <code>map_public_ip_on_launch = true</code> dans les subnets publics.</td>
+                    </tr>
+                    <tr>
+                      <td>Instances/ressources qui reviennent (Auto Scaling / EKS)</td>
+                      <td>Supprimer <b>manuellement</b> Node Groups et clusters dans la console EKS puis <code>terraform destroy</code>.</td>
+                    </tr>
+                    <tr>
+                      <td>Coûts inattendus (ressources actives oubliées)</td>
+                      <td>Checklist de <b>cleanup</b> : EKS (NG & cluster) → EBS/ENI → EC2. Mettre des alertes budgets.</td>
+                    </tr>
+                    <tr>
+                      <td>Erreur Maven <i>“source release 5 is no longer supported”</i></td>
+                      <td>Forcer la version Java dans <code>maven-compiler-plugin</code> (1.8 ou 11 selon le runtime).</td>
+                    </tr>
+                    <tr>
+                      <td>Handler Lambda non reconnu</td>
+                      <td>Vérifier le <b>package</b> et le handler : <code>com.example.App::handleRequest</code>.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- 7. Nettoyage & maîtrise des coûts -->
+          <div class="faq-item">
+            <div class="question" onclick="toggleAnswer('a6', this)">
+              Étape 5 : Nettoyage & maîtrise des coûts
+              <span class="arrow"><i class="bx bx-chevron-down"></i></span>
+            </div>
+            <div class="answer" id="a6">
+              <div class="p-2">
+                <ul>
+                  <li><b>Ordre de destruction :</b> supprimer d’abord les <b>Node Groups</b>, puis le <b>cluster</b>, puis <code>terraform destroy</code>.</li>
+                  <li>Arrêter / terminer la VM EC2 si non utilisée.</li>
+                  <li>Activer <b>AWS Budgets</b> pour alerter en cas de dérive.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- 8. Arborescence & commandes utiles -->
+          <div class="faq-item">
+            <div class="question" onclick="toggleAnswer('a7', this)">
+              Arborescence & commandes utiles
+              <span class="arrow"><i class="bx bx-chevron-down"></i></span>
+            </div>
+            <div class="answer" id="a7">
+              <div class="p-2">
+                <pre><code>infra/
+├─ provider.tf   ─ variables.tf ─ main.tf ─ iam.tf ─ outputs.tf
+hello-lambda/
+├─ pom.xml
+└─ src/main/java/com/example/App.java
+</code></pre>
+
+                <pre><code class="language-bash"># Terraform
+terraform fmt && terraform validate
+terraform plan -out=tfplan
+terraform apply tfplan
+terraform destroy
+
+# Maven
+mvn -f hello-lambda/pom.xml clean package
+
+# (optionnel) Kubectl si kubeconfig configuré
+aws eks update-kubeconfig --region eu-west-3 --name infoline-eks-cluster
+kubectl get nodes
+</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- 9. Bilan, compétences & techno -->
+          <div class="faq-item">
+            <div class="question" onclick="toggleAnswer('a8', this)">
+              Bilan, compétences mobilisées & technologies
+              <span class="arrow"><i class="bx bx-chevron-down"></i></span>
+            </div>
+            <div class="answer" id="a8">
+              <div class="p-2">
+                <p><b>Bilan :</b> un cluster <b>EKS</b> déployé automatiquement par <b>Terraform</b> + une fonction <b>Lambda Java</b> packagée et testée.</p>
+                <p class="mb-2"><b>Compétences :</b></p>
+                <div>
+                  <span class="chip">Infrastructure as Code</span>
+                  <span class="chip">Réseau AWS (VPC/Subnets/IGW)</span>
+                  <span class="chip">IAM & permissions</span>
+                  <span class="chip">Kubernetes managé (EKS)</span>
+                  <span class="chip">Java / Maven</span>
+                  <span class="chip">CI mentale & troubleshooting</span>
+                </div>
+                <p class="mt-2 mb-1"><b>Technologies :</b></p>
+                <div>
+                  <span class="chip">AWS EC2</span>
+                  <span class="chip">AWS EKS</span>
+                  <span class="chip">AWS Lambda</span>
+                  <span class="chip">Terraform</span>
+                  <span class="chip">Java (Corretto 1.8/11)</span>
+                  <span class="chip">Maven</span>
+                  <span class="chip">PowerShell / SSH</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /col -->
+      </div><!-- /row -->
+
+    </div>
+  </section><!-- End Portfolio Details -->
+</main>
+
+<a href="#" class="back-to-top"><i class="bx bx-up-arrow-alt"></i></a>
+<div id="preloader"></div>
+
+<!-- Vendor JS -->
+<script src="assets/vendor/jquery/jquery.min.js"></script>
+<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+<script src="assets/vendor/venobox/venobox.min.js"></script>
+<script src="assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+<script src="assets/vendor/counterup/counterup.min.js"></script>
+<script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+<script src="assets/vendor/typed.js/typed.min.js"></script>
+<script src="assets/vendor/aos/aos.js"></script>
+
+<!-- Template JS -->
+<script src="assets/js/main.js"></script>
+
+<!-- Accordéons -->
+<script>
+  function toggleAnswer(id, el){
+    const ans = document.getElementById(id);
+    const isOpen = ans.classList.contains('answer-visible');
+    document.querySelectorAll('.answer').forEach(a => a.classList.remove('answer-visible'));
+    document.querySelectorAll('.question').forEach(q => q.classList.remove('answer-visible'));
+    if(!isOpen){ ans.classList.add('answer-visible'); el.classList.add('answer-visible'); }
+  }
+</script>
 </body>
-
 </html>
