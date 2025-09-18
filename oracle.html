@@ -8,11 +8,42 @@
   <meta name="description" content="Mise en place d’une base Oracle XE sous Docker avec schéma délibérations/votes.">
   <meta name="keywords" content="Oracle XE, SQL, Docker, GitHub, DBeaver, Délibérations, Votes, DevOps">
 
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Raleway:400,600,700|Poppins:400,500,600,700" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="assets/vendor/venobox/venobox.css" rel="stylesheet">
   <link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --accent:#f2559e;
+      --accent2:#007bff;
+      --ink:#0b1420;
+    }
+    .lead-intro { font-size:1.05rem; line-height:1.6; color:#4a5568; margin:6px 0 18px; }
+    .accent{color:var(--accent); font-weight:700;}
+    .tech-tags{margin:8px 0 18px; display:flex; flex-wrap:wrap; gap:8px;}
+    .tag{background:rgba(242,85,158,.08); color:#b71862; border:1px solid rgba(242,85,158,.25); padding:4px 10px; border-radius:999px; font-size:.85rem; font-weight:600;}
+    pre{ background:#0f172a; color:#e2e8f0; padding:14px; border-radius:12px; overflow:auto; }
+    pre code{ font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size:.92rem; }
+    .faq-item{ border-bottom:1px solid #e9ecef; padding:14px 0; }
+    .question{ cursor:pointer; font-weight:700; padding-right:24px; position:relative; color:#1f2937;}
+    .answer{ max-height:0; overflow:hidden; transition:max-height .3s ease; }
+    .arrow-icon{ position:absolute; right:0; top:0; transition:transform .3s ease; color:var(--accent2);}
+    .answer-visible .arrow-icon{ transform:rotate(180deg); }
+    .portfolio-details-carousel img{ border-radius:14px; }
+  </style>
 </head>
 
 <body>
@@ -23,10 +54,9 @@
 
         <!-- Carrousel images -->
         <div class="col-lg-8">
-          <h2 class="portfolio-title" style="text-align:center; color:#007bff;">
+          <h2 class="portfolio-title" style="text-align:center; color:var(--accent2);">
             Oracle – Délibérations & Votes
           </h2>
-
           <div class="owl-carousel portfolio-details-carousel">
             <img src="assets/img/creat delibuser schema.jpg" class="img-fluid" alt="Création schéma Oracle delibuser">
             <img src="assets/img/xe creat.jpg" class="img-fluid" alt="Script SQL création utilisateur Oracle">
@@ -34,13 +64,13 @@
           </div>
         </div>
 
-        <!-- Résumé & tags -->
+        <!-- Résumé + tags -->
         <div class="col-lg-4 portfolio-info">
-          <h3 style="text-align:center"><strong>Objectif</strong> : Mettre en place une base Oracle XE Dockerisée</h3>
+          <h3 style="text-align:center"><strong>Objectif :</strong> Mettre en place une base Oracle XE Dockerisée</h3>
           <p class="lead-intro">
-            Mise en place d’un environnement Oracle complet : schéma <strong>delibuser</strong>, tables
-            <span class="accent">citoyens</span>, <span class="accent">votes</span>, <span class="accent">délibérations</span>,
-            connectable depuis <strong>DBeaver</strong>, avec scripts SQL et gestion GitHub.
+            Mise en place d’un environnement <strong>Oracle XE</strong> complet : schéma <span class="accent">delibuser</span>,
+            tables <span class="accent">citoyens</span>, <span class="accent">votes</span>, <span class="accent">délibérations</span>,
+            connectable via <strong>DBeaver</strong>, avec scripts SQL et gestion GitHub.
           </p>
 
           <div class="tech-tags">
@@ -68,34 +98,33 @@
             <div class="question" onclick="toggleAnswer('cx', this)">Contexte & objectifs <span class="arrow-icon">▼</span></div>
             <div class="answer" id="cx">
               <p>
-                Projet de mise en place d’<strong>Oracle XE</strong> sous Docker pour créer un schéma <code>delibuser</code>,
-                manipuler des tables relationnelles et versionner les livrables sous GitHub.
+                Projet d’installation d’<strong>Oracle XE</strong> dans un conteneur Docker,
+                création du schéma <code>delibuser</code>, gestion des droits et mise en place de tables relationnelles.
               </p>
             </div>
           </div>
 
-          <!-- Architecture -->
+          <!-- Architecture & scripts -->
           <div class="faq-item">
             <div class="question" onclick="toggleAnswer('archi', this)">Architecture & Scripts SQL <span class="arrow-icon">▼</span></div>
             <div class="answer" id="archi">
-              <p>Script d’initialisation (<code>init_oracle.sql</code>) :</p>
 <pre><code class="language-sql">CREATE USER delibuser IDENTIFIED BY Delib2025;
 GRANT CONNECT, RESOURCE TO delibuser;
 
 CREATE TABLE delibuser.citoyens (
-    id NUMBER GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
-    nom VARCHAR2(100),
-    prenom VARCHAR2(100),
-    date_naissance DATE,
-    ville VARCHAR2(100)
+  id NUMBER GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
+  nom VARCHAR2(100),
+  prenom VARCHAR2(100),
+  date_naissance DATE,
+  ville VARCHAR2(100)
 );
 
 CREATE TABLE delibuser.votes (
-    id NUMBER GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
-    id_citoyen NUMBER,
-    id_deliberation NUMBER,
-    vote VARCHAR2(10),
-    FOREIGN KEY (id_citoyen) REFERENCES delibuser.citoyens(id)
+  id NUMBER GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
+  id_citoyen NUMBER,
+  id_deliberation NUMBER,
+  vote VARCHAR2(10),
+  FOREIGN KEY (id_citoyen) REFERENCES delibuser.citoyens(id)
 );
 </code></pre>
             </div>
@@ -103,7 +132,7 @@ CREATE TABLE delibuser.votes (
 
           <!-- Déploiement -->
           <div class="faq-item">
-            <div class="question" onclick="toggleAnswer('deploy', this)">Installation & Lancement <span class="arrow-icon">▼</span></div>
+            <div class="question" onclick="toggleAnswer('deploy', this)">Installation & lancement <span class="arrow-icon">▼</span></div>
             <div class="answer" id="deploy">
 <pre><code class="language-bash"># Lancer Oracle XE via Docker
 docker-compose up -d
@@ -121,7 +150,7 @@ sqlplus sys/MySecurePassword123@localhost:1521/XEPDB1 as sysdba
             <div class="answer" id="issues">
               <ul>
                 <li>ORA-01918 (utilisateur inexistant) → correction du schéma actif</li>
-                <li>Problèmes de droits → résolus avec <code>GRANT CONNECT, RESOURCE</code></li>
+                <li>Problèmes de droits → corrigés avec <code>GRANT CONNECT, RESOURCE</code></li>
                 <li>Conflits de noms → suppression manuelle des objets doublons</li>
               </ul>
             </div>
@@ -129,11 +158,11 @@ sqlplus sys/MySecurePassword123@localhost:1521/XEPDB1 as sysdba
 
           <!-- Résultats -->
           <div class="faq-item">
-            <div class="question" onclick="toggleAnswer('results', this)">Résultats & Bilan <span class="arrow-icon">▼</span></div>
+            <div class="question" onclick="toggleAnswer('results', this)">Résultats & bilan <span class="arrow-icon">▼</span></div>
             <div class="answer" id="results">
               <ul>
                 <li>Schéma <code>delibuser</code> opérationnel</li>
-                <li>Tables <code>citoyens</code>, <code>votes</code>, <code>deliberations</code> créées et peuplées</li>
+                <li>Tables <code>citoyens</code>, <code>votes</code>, <code>délibérations</code> créées</li>
                 <li>Connexion validée via DBeaver</li>
                 <li>Versionnage GitHub structuré</li>
               </ul>
