@@ -13,7 +13,7 @@ Présenter mon parcours, mes compétences et une sélection de projets concrets 
 - **Mes projets** : cartes cliquables vers des pages détaillées.
 - **Contact** : mail et réseaux.
 
-## 🛠 Stack & organisation
+## Stack & organisation
 - Static site (HTML/CSS/JS), compatible GitHub Pages.
 - Dossier `/assets` pour images, icônes et styles.
 - Dossier `/forms` et `/scripts` pour ressources additionnelles.
