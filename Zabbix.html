@@ -216,6 +216,7 @@ sc start "Zabbix Agent"
                 <span class="arrow-icon">▼</span>
               </div>
               <div class="answer" id="a5">
+                <p></p>
                 <ul>
                   <li><strong>ZBX grisé</strong> : mauvaise IP/port ou agent arrêté → corriger <code>zabbix_agentd.conf</code>, <code>systemctl status</code>, tester <code>zabbix_get</code>.</li>
                   <li><strong>zabbix-server KO</strong> : mot de passe DB incohérent → réaligner <code>/etc/zabbix/zabbix_server.conf</code> et l’utilisateur MariaDB, redémarrer.</li>
@@ -254,6 +255,40 @@ zabbix_get -s 192.168.100.20 -k agent.ping
 
           </div><!-- /col-12 -->
         </div><!-- /row -->
+        <!-- Résultats & enseignements -->
+<div class="faq-item">
+  <div class="question" onclick="toggleAnswer('zx-results', this)">
+    Résultats & enseignements
+    <span class="arrow-icon">▼</span>
+  </div>
+  <div class="answer" id="zx-results">
+    <h5 class="mb-2">Résultats obtenus</h5>
+    <ul>
+      <li><strong>Plateforme opérationnelle</strong> : Zabbix 6.x sur Debian 12 (MariaDB + Apache/PHP), accès web fonctionnel et agents Linux/Windows joignables.</li>
+      <li><strong>Couverture multi-OS</strong> : collecte CPU/RAM/disques/process, tests <code>zabbix_get</code> validés, templates appliqués (<em>Linux by Zabbix agent</em>, <em>Template App Apache</em>).</li>
+      <li><strong>Topologie maîtrisée</strong> : réseau VirtualBox <em>NAT + intnet</em>, IP statiques, ports 10050/10051 opérationnels (checks passifs/actifs).</li>
+      <li><strong>Runbook & scripts</strong> : installation serveur automatisée, script agent Linux, mémo commandes (services, DB, logs, réseau).</li>
+      <li><strong>Dépannage documenté</strong> : cas réels (ZBX grisé, auth DB, NIC manquante) et résolutions pas-à-pas → reproductibilité des fixes.</li>
+    </ul>
+
+    <h5 class="mt-3 mb-2">Plus-values (techniques & métier)</h5>
+    <ul>
+      <li><strong>Industrialisation</strong> : déploiement standardisé + configuration idempotente → environnements de démo/formation rapides.</li>
+      <li><strong>Observabilité de base</strong> : visibilité immédiate sur la santé des hôtes et du service Apache → détection précoce des dérives.</li>
+      <li><strong>Sécurité pragmatique</strong> : séparation de réseau, durcissement des comptes, alignement des secrets DB → surface d’attaque réduite.</li>
+      <li><strong>Transférable en prod</strong> : architecture simple à étendre (reverse proxy, TLS, alerting mail/Teams/Slack, auto-discovery).</li>
+      <li><strong>Gain d’exploitation</strong> : procédures claires (install, ajout d’hôtes, troubleshooting) → moins de temps perdu lors des incidents.</li>
+    </ul>
+
+    <h5 class="mt-3 mb-2">Ce que le projet m’a appris</h5>
+    <ul>
+      <li><strong>Conduire une supervision hétérogène</strong> de bout en bout (serveur, agents, modèles, réseau, sécurité).</li>
+      <li><strong>Relier technique et usage</strong> : partir d’un besoin d’observabilité et livrer un socle exploitable par l’équipe.</li>
+      <li><strong>Documenter pour la pérennité</strong> : scripts, runbook et dépannage capitalisés pour accélérer les futures mises en place.</li>
+    </ul>
+  </div>
+</div>
+
       </div><!-- /container -->
     </section>
   </main>
