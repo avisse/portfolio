@@ -1240,6 +1240,7 @@ Animé par l’<strong>amélioration continue</strong> et la <strong>collaborati
 
     
     <!-- =======        <p><a href="assets/img/memoiresteve.pdf"  class="btn btn-primary py-3 px-3"> Mon mémoire </a></p>cv-->
+
   <section id="facts" class="facts">
       <div class="container" data-aos="fade-up">
 
@@ -1321,71 +1322,81 @@ Animé par l’<strong>amélioration continue</strong> et la <strong>collaborati
 
 
     <!-- ======= Contact Section ======= -->
-    <section id="contact" class="contact">
-      <div class="container" data-aos="fade-up">
+  <section id="contact" class="contact">
+  <div class="container" data-aos="fade-up">
 
-        <div class="section-title">
-          <h2>Contactez-moi</h2>
-        </div>
+    <div class="section-title">
+      <h2>Contactez-moi</h2>
+    </div>
 
-        <div class="row mt-1">
-
-          <div class="col-lg-4">
-            <div class="info">
-              <div class="address">
-                <i class="icofont-google-map"></i>
-                <h4>Location:</h4>
-                <p>Montpellier</p>
-              </div>
-
-              <div class="email">
-                <i class="icofont-envelope"></i>
-                <h4>Email:</h4>
-                <p>avisse.steve@gmail.com</p>
-              </div>
-
-              <div class="phone">
-                <i class="icofont-phone" href="assets/img/memoiresteve.pdf"></i>
-                <h4>Téléphone:</h4>
-                <p>07.68.30.36.09</p>
-              </div>
-             
-
-          <div class="col-lg-8 mt-5 mt-lg-0">
-
-            <form method="POST" name="contactform" action="contact-form-handler.php" role="form" class="php-email-form">
-              <div class="form-row">
-                <div class="col-md-6 form-group">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Votre Nom" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                  <div class="validate"></div>
-                </div>
-                <div class="col-md-6 form-group">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Mail" data-rule="email" data-msg="Please enter a valid email" />
-                  <div class="validate"></div>
-                </div>
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Sujet" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
-                <div class="validate"></div>
-              </div>
-              <div class="form-group">
-                <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
-                <div class="validate"></div>
-              </div>
-              <div class="mb-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Votre message a été envoyé. Je vous remercie!</div>
-              </div>
-              <div class="text-center"><button type="submit"> Envoyer le message </button></div>
-            </form>
-
+    <div class="row mt-1">
+      <!-- Colonne gauche : infos -->
+      <div class="col-lg-4 col-md-12">
+        <div class="info">
+          <div class="address">
+            <i class="icofont-google-map"></i>
+            <h4>Location:</h4>
+            <p>Montpellier</p>
           </div>
 
-        </div>
+          <div class="email">
+            <i class="icofont-envelope"></i>
+            <h4>Email:</h4>
+            <p>avisse.steve@gmail.com</p>
+          </div>
 
-      </div>
-    </section><!-- End Contact Section -->
+          <div class="phone">
+            <!-- pas de href sur <i>; si tu veux un lien, entoure avec <a> -->
+            <i class="icofont-phone"></i>
+            <h4>Téléphone:</h4>
+            <p>07.68.30.36.09</p>
+          </div>
+        </div>
+      </div><!-- /col-lg-4 -->
+
+      <!-- Colonne droite : formulaire -->
+      <div class="col-lg-8 col-md-12 mt-5 mt-lg-0">
+        <form method="POST" name="contactform" action="contact-form-handler.php" role="form" class="php-email-form">
+          <div class="form-row">
+            <div class="col-md-6 form-group">
+              <input type="text" name="name" class="form-control" id="name" placeholder="Votre Nom"
+                     data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+              <div class="validate"></div>
+            </div>
+            <div class="col-md-6 form-group">
+              <input type="email" class="form-control" name="email" id="email" placeholder="Mail"
+                     data-rule="email" data-msg="Please enter a valid email" />
+              <div class="validate"></div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input type="text" class="form-control" name="subject" id="subject" placeholder="Sujet"
+                   data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+            <div class="validate"></div>
+          </div>
+
+          <div class="form-group">
+            <textarea class="form-control" name="message" rows="5" data-rule="required"
+                      data-msg="Please write something for us" placeholder="Message"></textarea>
+            <div class="validate"></div>
+          </div>
+
+          <div class="mb-3">
+            <div class="loading">Loading</div>
+            <div class="error-message"></div>
+            <div class="sent-message">Votre message a été envoyé. Je vous remercie!</div>
+          </div>
+
+          <div class="text-center">
+            <button type="submit">Envoyer le message</button>
+          </div>
+        </form>
+      </div><!-- /col-lg-8 -->
+    </div><!-- /row -->
+
+  </div><!-- /container -->
+</section>
 
   </main><!-- End #main -->
 
