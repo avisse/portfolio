@@ -221,12 +221,12 @@ docker compose exec -T db psql -U postgres -d subventions_db \
                 <span class="arrow-icon">▼</span>
               </div>
               <div class="answer" id="a3">
-                <p>
-                  <strong class="accent">La stratégie que j’ai décidée</strong> : un dump quotidien côté hôte avec
-                  <strong>rétention 7 jours</strong>. Pourquoi ? Parce que c’est :
-                  (1) trivial à déployer, (2) lisible/auditable, (3) suffisant pour une démo.
-                  J’ai donc écrit un script qui <em>génère un fichier horodaté, conserve 7 jours et simplifie la restauration</em>.
-                </p>
+              <p>
+  <strong class="accent">Stratégie adoptée</strong> : un script de sauvegarde génère 
+  chaque jour un dump horodaté de la base et conserve les 7 derniers fichiers. 
+  Cette approche est <em>simple, lisible et suffisante</em> pour une démonstration, 
+  tout en permettant une restauration immédiate en cas de besoin.
+</p>            
 <pre><code class="language-bash">#!/usr/bin/env bash
 set -euo pipefail
 STAMP=$(date +%Y%m%d_%H%M)
@@ -322,6 +322,7 @@ docker compose exec -T db psql -U postgres -d subventions_db \
       </a>
     </p>
   </div>
+</div>
 </div>
       </div><!-- /container -->
     </section><!-- End Portfolio Details -->
