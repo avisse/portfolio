@@ -131,9 +131,10 @@
               </div>
               <div class="answer" id="cx">
                 <p>
-                  Côté produit, le besoin est d’<strong>analyser des subventions</strong> par organisme, finalité
-                  et période pour raconter une histoire (évolution, saisonnalité, top bénéficiaires).
-                  Côté technique, je veux un <strong>environnement reproductible</strong> : on clône, on lance,
+                 - Côté produit, le besoin est d’<strong>analyser des subventions</strong> par organisme, finalité
+                  et période pour raconter une histoire (évolution, saisonnalité, top bénéficiaires).  </p>
+                  <p>
+                 - Côté technique, je veux un <strong>environnement reproductible</strong> : on clône, on lance,
                   et tout fonctionne (base, données, visus). Je privilégie Docker pour la portabilité, et j’ajoute une
                   <strong>stratégie de sauvegarde</strong> pour la robustesse.
                 </p>
@@ -273,21 +274,55 @@ docker compose exec -T db psql -U postgres -d subventions_db \
               </div>
               <div class="answer" id="a5">
                 <ul>
-                  <li>Un <strong>dashboard démonstrateur</strong> (évolution, top organismes, finalités).</li>
-                  <li>Une stack <strong>reproductible</strong> (Compose) + dataset réaliste + scripts.</li>
-                  <li>Un pitch clair : <em>je sais packager, alimenter et opérer une chaîne DataViz</em>.</li>
-                </ul>
-                <p>
-                  <a class="btn-ghost" href="https://github.com/avisse/metabase-digdash-databisualisation" target="_blank" rel="noopener">
-                    Ouvrir le repo (code & fichiers SQL)
-                  </a>
-                </p>
-              </div>
-            </div>
+      <li>
+        <strong>Dashboard métier opérationnel</strong> : Evolution mensuelle des subventions,
+        <em>top bénéficiaires</em> par organisme, répartition par finalité/périmètre.
+      </li>
+      <li>
+        <strong>Stack reproductible</strong> : déploiement « <code>docker compose up -d</code> »,
+        relance sans perte (volumes <code>pgdata</code> / <code>metabase-data</code>).
+      </li>
+      <li>
+        <strong>Dataset réaliste</strong> : données synthétiques pluriannuelles (saisonnalité, montées en charge),
+        <em>typage</em> soigné (dates, montants) pour des visus fiables.
+      </li>
+      <li>
+        <strong>Sauvegarde & restauration</strong> : script <code>pg_dump</code> avec rétention 7 jours,
+        restauration testée (<code>psql</code>) → <em>rollback</em> rapide en cas d’incident.
+      </li>
+      <li>
+        <strong>Observabilité minimale</strong> : logs temps réel (<code>docker compose logs -f</code>),
+        variables sensibles externalisées (<code>.env</code>), relance idempotente.
+      </li>
+    </ul>
 
-          </div><!-- /col-12 -->
+    <h5 class="mt-4 mb-2">Enseignements clés</h5>
+    <ul>
+      <li>
+        <strong>Industrialisation</strong> : packaging Docker + init SQL = environnement portable, documenté,
+        prêt pour démonstration/formation.
+      </li>
+      <li>
+        <strong>Data design pragmatique</strong> : schéma minimal mais expressif (temps, finalité, organisme)
+        → indicateurs métier immédiatement actionnables.
+      </li>
+      <li>
+        <strong>Réflexe DevOps</strong> : persistance, secrets, scripts d’exploitation, backups → 
+        pensée cycle de vie, pas seulement « déploiement ».
+      </li>
+      <li>
+        <strong>Traduction valeur</strong> : passer de la donnée brute aux insights (tendances, saisonnalité, top N)
+        pour éclairer la décision.
+      </li>
+    </ul>
 
-        </div><!-- /row -->
+    <p class="mt-3">
+      <a class="btn-ghost" href="https://github.com/avisse/metabase-digdash-databisualisation" target="_blank" rel="noopener">
+        Ouvrir le repo (code &amp; fichiers SQL)
+      </a>
+    </p>
+  </div>
+</div>
       </div><!-- /container -->
     </section><!-- End Portfolio Details -->
   </main><!-- End #main -->
