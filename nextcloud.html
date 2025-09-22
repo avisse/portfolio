@@ -5,9 +5,9 @@
 <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Metabase – Data Visualisation | Steve Avisse</title>
-  <meta name="description" content="Projet DataViz : stack Docker (PostgreSQL + Metabase), chargement SQL, dashboard, sauvegardes automatisées.">
-  <meta name="keywords" content="Metabase, Docker, PostgreSQL, DataViz, Dashboard, SQL, Backup">
+  <title>Nextcloud – Espace de collaboration (Docker) | Steve Avisse</title>
+  <meta name="description" content="Projet DevOps : déploiement de Nextcloud sous Docker (Apache) avec MariaDB et Redis. Persistance data/config/apps, optimisation APCu/Redis, sauvegardes et sécurisation.">
+  <meta name="keywords" content="Nextcloud, Docker, Docker Compose, MariaDB, Redis, APCu, Reverse Proxy, TLS, RGPD, Collaboration, Fichiers">
 
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
@@ -78,46 +78,46 @@
           <!-- Colonne gauche : carrousel -->
           <div class="col-lg-8">
             <h2 class="portfolio-title" style="text-align:center; color: var(--accent2);">
-              Metabase – Chaîne DataViz dockerisée (PostgreSQL + Dashboard)
+              Nextcloud – Espace de collaboration (Docker)
             </h2>
 
             <div class="owl-carousel portfolio-details-carousel">
-              <!-- Remplace/ajoute tes captures ici -->
-              <img src="assets/img/digdash7.jpg" class="img-fluid" alt="d">
-              <img src="assets/img/digdash5.jpg" class="img-fluid" alt="d">
-              <img src="assets/img/digdash6.jpg" class="img-fluid" alt="d">
-              <img src="assets/img/digdash.png" class="img-fluid" alt="">
-             <img src="assets/img/digdash9.jpg" class="img-fluid" alt="">
-             <img src="assets/img/digdash 2.jpg" class="img-fluid" alt="">
+              <!-- Remplace par tes captures -->
+              <img src="assets/img/nextcloud-1.png" class="img-fluid" alt="Nextcloud – accueil">
+              <img src="assets/img/nextcloud-2.png" class="img-fluid" alt="Nextcloud – fichiers & partages">
+              <img src="assets/img/nextcloud-3.png" class="img-fluid" alt="Nextcloud – apps intégrées">
             </div>
-          </div>        
+          </div>
 
           <!-- Colonne droite : résumé / tags / lien repo -->
           <div class="col-lg-4 portfolio-info">
-            <h3 style="text-align:center"><strong>Docker: Subventions – Dashboard Metabase</strong></h3>
+            <h3 style="text-align:center"><strong>Nextcloud : Collaboration & fichiers</strong></h3>
 
             <p class="lead-intro">
-              Je voulais une chaîne <span class="accent">DataViz locale, reproductible</span> :
-              <strong>PostgreSQL</strong> pour les données, <strong>Metabase</strong> pour l’analyse,
-              et <strong>Docker Compose</strong> pour démarrer/stopper le tout en une commande.
-              L’objectif : <em>packager l’infra, structurer la donnée et exposer des indicateurs métier clairs</em>.
+              Déploiement de <strong>Nextcloud</strong> sous <strong>Docker</strong> (Apache) avec
+              <strong>MariaDB</strong> et <strong>Redis</strong> pour offrir un espace de
+              <span class="accent">stockage, partage et collaboration</span> conforme RGPD. 
+              Persistance <em>data/config/apps</em>, optimisations <em>APCu/Redis</em>, sauvegardes et préparation à l’exposition via reverse proxy.
             </p>
 
             <div class="tech-tags">
               <span class="tag">Docker Compose</span>
-              <span class="tag">PostgreSQL 15</span>
-              <span class="tag">Metabase</span>
-              <span class="tag">SQL</span>
-              <span class="tag">Backups</span>
+              <span class="tag">Nextcloud (Apache)</span>
+              <span class="tag">MariaDB LTS</span>
+              <span class="tag">Redis / APCu</span>
+              <span class="tag">Reverse Proxy / TLS</span>
+              <span class="tag">RGPD</span>
             </div>
 
             <ul style="margin-bottom:14px">
-              <li><strong>Catégorie</strong> : Application / DataViz</li>
-              <li><strong>Contexte</strong> : VM Debian 12 (local)</li>
-              <li><strong>Livrables</strong> : BDD démo, questions Metabase, dashboard, scripts de sauvegarde</li>
+              <li><strong>Catégorie</strong> : Collaboration / Fichiers</li>
+              <li><strong>Contexte</strong> : VM Debian 12 (pilote DSI)</li>
+              <li><strong>Livrables</strong> : compose, config persistance, scripts backup, doc</li>
             </ul>
 
-              <a class="btn-repo" href="https://github.com/avisse/activite-1" target="_blank" rel="noopener"><i class="bx bxl-github"></i> Voir le repository GitHub</a>
+            <a class="btn-repo" href="https://github.com/avisse/nextcloud-deploiement" target="_blank" rel="noopener">
+              <i class="bx bxl-github"></i> Voir le repository GitHub
+            </a>
           </div>
 
           <!-- ======= Accordéons détaillés (pleine largeur) ======= -->
@@ -131,199 +131,187 @@
               </div>
               <div class="answer" id="cx">
                 <p>
-                 - Côté produit, le besoin est d’<strong>analyser des subventions</strong> par organisme, finalité
-                  et période pour raconter une histoire (évolution, saisonnalité, top bénéficiaires).  </p>
-                  <p>
-                 - Côté technique, je veux un <strong>environnement reproductible</strong> : on clône, on lance,
-                  et tout fonctionne (base, données, visus). Je privilégie Docker pour la portabilité, et j’ajoute une
-                  <strong>stratégie de sauvegarde</strong> pour la robustesse.
+                  La collectivité souhaite <strong>centraliser</strong> stockage, partage et collaboration 
+                  (fichiers, calendriers, contacts) pour réduire les partages réseau hétérogènes et les e-mails lourds.
+                  Exigences : <em>auto-hébergé, RGPD, web/mobile, extensible</em>.
                 </p>
-              </div>
-            </div>
-
-            <!-- Architecture & Docker -->
-            <div class="faq-item">
-              <div class="question" onclick="toggleAnswer('a1', this)">
-                Architecture & Docker Compose
-                <span class="arrow-icon">▼</span>
-              </div>
-              <div class="answer" id="a1">
-                <p>
-                  Deux services (<code>db</code> et <code>metabase</code>) sur le même réseau Docker, avec
-                  <strong>volumes persistants</strong> pour ne pas perdre l’état. Je peux redémarrer la stack
-                  sans reconfigurer Metabase ni la base.
-                </p>
-<pre><code class="language-yaml">version: "3.8"
-services:
-  db:
-    image: postgres:15
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: subventions_db
-    ports: ["5432:5432"]
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-      - ./sql:/docker-entrypoint-initdb.d
-    restart: unless-stopped
-
-  metabase:
-    image: metabase/metabase:latest
-    ports: ["3000:3000"]
-    depends_on: [db]
-    environment:
-      MB_DB_TYPE: postgres
-      MB_DB_DBNAME: subventions_db
-      MB_DB_PORT: 5432
-      MB_DB_HOST: db
-      MB_DB_USER: postgres
-      MB_DB_PASS: postgres
-    volumes:
-      - metabase-data:/metabase-data
-    restart: unless-stopped
-
-volumes: { pgdata: {}, metabase-data: {} }
-</code></pre>
-                <p class="soft">
-                  Lancement : <code>docker compose up -d</code> → Metabase sur <code>http://localhost:3000</code>.
-                </p>
-              </div>
-            </div>
-
-            <!-- Données & SQL -->
-            <div class="faq-item">
-              <div class="question" onclick="toggleAnswer('a2', this)">
-                Modèle de données & chargement
-                <span class="arrow-icon">▼</span>
-              </div>
-              <div class="answer" id="a2">
-                <p>
-                  <strong class="accent">Schéma minimaliste</strong> : table <code>subventions</code>
-                  (<code>id</code>, <code>organisme</code>, <code>objet</code>, <code>montant</code>, <code>date_versement</code>)
-                  alimentée par un script SQL étendu pour simuler plusieurs années et organismes.
-                </p>
-<pre><code class="language-bash"># Injection (depuis l'hôte)
-docker compose exec -T db psql -U postgres -d subventions_db \
-  -f /docker-entrypoint-initdb.d/extended_subventions.sql
-</code></pre>
-                <p>
-                  Dans Metabase, je <strong>tippe correctement</strong> les colonnes (date, nombre),
-                  je crée des “Questions” (séries temporelles, top N, répartitions)
-                  puis je les assemble en <strong>Dashboard</strong> (évolution mensuelle, top organismes, total par finalité).
-                </p>
-              </div>
-            </div>
-
-            <!-- Sauvegarde & restauration -->
-            <div class="faq-item">
-              <div class="question" onclick="toggleAnswer('a3', this)">
-                Sauvegarde & restauration (pg_dump)
-                <span class="arrow-icon">▼</span>
-              </div>
-              <div class="answer" id="a3">
-              <p>
-  <strong class="accent">Stratégie adoptée</strong> : un script de sauvegarde génère 
-  chaque jour un dump horodaté de la base et conserve les 7 derniers fichiers. 
-  Cette approche est <em>simple, lisible et suffisante</em> pour une démonstration, 
-  tout en permettant une restauration immédiate en cas de besoin.
-</p>            
-<pre><code class="language-bash">#!/usr/bin/env bash
-set -euo pipefail
-STAMP=$(date +%Y%m%d_%H%M)
-OUT="backups/subventions_${STAMP}.sql"
-mkdir -p backups
-
-# Dump BDD
-docker compose exec -T db pg_dump -U postgres subventions_db &gt; "$OUT"
-
-# Rétention 7 jours
-find backups -type f -name "subventions_*.sql" -mtime +7 -delete
-echo "Backup OK -&gt; $OUT"
-</code></pre>
-<pre><code class="language-bash"># Restauration
-docker compose exec -T db psql -U postgres -d subventions_db \
-  &lt; backups/subventions_YYYYMMDD_HHMM.sql
-</code></pre>
-                <p class="soft">
-                  Cron d’exemple : <code>15 2 * * * /bin/bash /chemin/backup.sh &gt;&gt; /chemin/backup.log 2&gt;&1</code>
-                </p>
-              </div>
-            </div>
-
-            <!-- Sécurité / Observabilité -->
-            <div class="faq-item">
-              <div class="question" onclick="toggleAnswer('a4', this)">
-                Sécurité & observabilité minimales
-                <span class="arrow-icon">▼</span>
-              </div>
-              <div class="answer" id="a4">
                 <ul>
-                  <li>Variables sensibles dans un <code>.env</code> (pas d’identifiants en clair dans le YAML).</li>
-                  <li>Volumes <code>pgdata</code> / <code>metabase-data</code> pour la persistance.</li>
-                  <li>Logs temps réel : <code>docker compose logs -f db</code> / <code>metabase</code>.</li>
-                  <li>Si exposition externe : reverse proxy et authentification.</li>
+                  <li>Pilote pour <strong>30–50 comptes</strong> (1–2 directions)</li>
+                  <li>Stack <strong>simple &amp; reproductible</strong> (Docker Compose)</li>
+                  <li><strong>Persistance</strong> data/config/apps &amp; <strong>performances</strong> (APCu/Redis)</li>
+                  <li>Préparer la <strong>montée en charge</strong> (reverse proxy, sauvegardes, supervision)</li>
                 </ul>
               </div>
             </div>
 
-            <!-- Résultats & enseignements -->
+            <!-- Architecture -->
             <div class="faq-item">
-              <div class="question" onclick="toggleAnswer('a5', this)">
-                Résultats & enseignements
+              <div class="question" onclick="toggleAnswer('archi', this)">
+                Architecture (Docker)
                 <span class="arrow-icon">▼</span>
               </div>
-              <div class="answer" id="a5">
+              <div class="answer" id="archi">
                 <ul>
-      <li>
-        <strong>Dashboard métier opérationnel</strong> : Evolution mensuelle des subventions,
-        <em>top bénéficiaires</em> par organisme, répartition par finalité/périmètre.
-      </li>
-      <li>
-        <strong>Stack reproductible</strong> : déploiement « <code>docker compose up -d</code> »,
-        relance sans perte (volumes <code>pgdata</code> / <code>metabase-data</code>).
-      </li>
-      <li>
-        <strong>Dataset réaliste</strong> : données synthétiques pluriannuelles (saisonnalité, montées en charge),
-        <em>typage</em> soigné (dates, montants) pour des visus fiables.
-      </li>
-      <li>
-        <strong>Sauvegarde & restauration</strong> : script <code>pg_dump</code> avec rétention 7 jours,
-        restauration testée (<code>psql</code>) → <em>rollback</em> rapide en cas d’incident.
-      </li>
-      <li>
-        <strong>Observabilité minimale</strong> : logs temps réel (<code>docker compose logs -f</code>),
-        variables sensibles externalisées (<code>.env</code>), relance idempotente.
-      </li>
-    </ul>
+                  <li><strong>app</strong> : <code>nextcloud:stable-apache</code> (Apache inclus)</li>
+                  <li><strong>db</strong> : <code>mariadb:lts</code></li>
+                  <li><strong>redis</strong> : <code>redis:alpine</code></li>
+                </ul>
+                <p><strong>Volumes persistants</strong> : <code>./data → /var/www/html/data</code>, <code>./config → /var/www/html/config</code>, <code>./custom_apps → /var/www/html/custom_apps</code>, <code>./db → /var/lib/mysql</code>.</p>
+              </div>
+            </div>
 
-    <h5 class="mt-4 mb-2">Enseignements clés</h5>
-    <ul>
-      <li>
-        <strong>Industrialisation</strong> : packaging Docker + init SQL = environnement portable, documenté,
-        prêt pour démonstration/formation.
-      </li>
-      <li>
-        <strong>Data design pragmatique</strong> : schéma minimal mais expressif (temps, finalité, organisme)
-        → indicateurs métier immédiatement actionnables.
-      </li>
-      <li>
-        <strong>Réflexe DevOps</strong> : persistance, secrets, scripts d’exploitation, backups → 
-        pensée cycle de vie, pas seulement « déploiement ».
-      </li>
-      <li>
-        <strong>Traduction valeur</strong> : passer de la donnée brute aux insights (tendances, saisonnalité, top N)
-        pour éclairer la décision.
-      </li>
-    </ul>
+            <!-- Compose -->
+            <div class="faq-item">
+              <div class="question" onclick="toggleAnswer('compose', this)">
+                Docker Compose (aligné déploiement)
+                <span class="arrow-icon">▼</span>
+              </div>
+              <div class="answer" id="compose">
+<pre><code class="language-yaml">version: '3.8'
 
-    <p class="mt-3">
-      <a class="btn-ghost" href="https://github.com/avisse/metabase-digdash-databisualisation" target="_blank" rel="noopener">
-        Ouvrir le repo (code &amp; fichiers SQL)
-      </a>
-    </p>
-  </div>
-</div>
-</div>
+services:
+  db:
+    image: mariadb:lts
+    container_name: nextcloud_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_PASSWORD: nextcloudpass
+      MYSQL_DATABASE: nextcloud
+      MYSQL_USER: nextcloud
+    volumes:
+      - ./db:/var/lib/mysql
+    networks: [nextcloud]
+
+  redis:
+    image: redis:alpine
+    container_name: nextcloud_redis
+    restart: always
+    networks: [nextcloud]
+
+  app:
+    image: nextcloud:stable-apache
+    container_name: nextcloud_app
+    restart: always
+    depends_on: [db, redis]
+    environment:
+      MYSQL_HOST: db
+      MYSQL_DATABASE: nextcloud
+      MYSQL_USER: nextcloud
+      MYSQL_PASSWORD: nextcloudpass
+      REDIS_HOST: redis
+      NEXTCLOUD_ADMIN_USER: admin
+      NEXTCLOUD_ADMIN_PASSWORD: adminpass
+      # Garder uniquement si un reverse proxy nommé "reverse_proxy" est présent
+      TRUSTED_PROXIES: reverse_proxy
+      OVERWRITEPROTOCOL: http
+    volumes:
+      - ./data:/var/www/html/data
+      - ./config:/var/www/html/config
+      - ./custom_apps:/var/www/html/custom_apps
+    ports:
+      - "8082:80"
+    networks: [nextcloud]
+
+networks:
+  nextcloud:</code></pre>
+                <p class="soft">🔎 Correction clé : monter <code>/var/www/html/data</code> (et non tout <code>/var/www/html</code>), sinon tu écrases le core Nextcloud.</p>
+              </div>
+            </div>
+
+            <!-- Mise en service -->
+            <div class="faq-item">
+              <div class="question" onclick="toggleAnswer('run', this)">
+                Mise en service (pas à pas)
+                <span class="arrow-icon">▼</span>
+              </div>
+              <div class="answer" id="run">
+                <ol>
+                  <li><strong>Prérequis</strong> : VM Debian 12, Docker + Compose, DNS/FQDN interne si besoin.</li>
+                  <li><strong>Arbo Git</strong> : <code>docker-compose.yml</code>, <code>config/</code>, <code>custom_apps/</code>, <code>data/</code>, <code>db/</code>, <code>backups/</code>.</li>
+                  <li><strong>Lancement</strong> : <code>docker compose up -d</code> → accès <code>http://IP_VM:8082</code> (admin auto si variables définies).</li>
+                  <li><strong>Optimisations</strong> : APCu + Redis + cron.</li>
+                </ol>
+<pre><code class="language-php">// config/apcu.config.php
+&lt;?php
+$CONFIG['memcache.local'] = '\\OC\\Memcache\\APCu';</code></pre>
+<pre><code class="language-php">// config/redis.config.php
+&lt;?php
+$CONFIG['memcache.locking'] = '\\OC\\Memcache\\Redis';
+$CONFIG['redis'] = ['host' =&gt; 'redis', 'port' =&gt; 6379];</code></pre>
+<pre><code class="language-php">// config/config.php (extraits)
+&lt;?php
+$CONFIG = [
+  'trusted_domains' =&gt; ['localhost','10.0.0.10','cloud.collectivite.local'],
+  'overwrite.cli.url' =&gt; 'http://cloud.collectivite.local',
+  'default_phone_region' =&gt; 'FR',
+];</code></pre>
+<pre><code class="language-bash"># Cron Nextcloud (toutes les 5 min)
+*/5 * * * * docker compose exec -u www-data nextcloud_app php -f cron.php &gt;/dev/null 2&gt;&1</code></pre>
+              </div>
+            </div>
+
+            <!-- Sécurité -->
+            <div class="faq-item">
+              <div class="question" onclick="toggleAnswer('sec', this)">
+                Sécurisation (paliers)
+                <span class="arrow-icon">▼</span>
+              </div>
+              <div class="answer" id="sec">
+                <ul>
+                  <li><strong>Pilote interne</strong> : accès LAN, secrets forts, sauvegardes basiques.</li>
+                  <li><strong>Pré-prod/Prod</strong> : reverse proxy (Traefik/NPM/Caddy) + <strong>TLS Let’s Encrypt</strong>, 
+                    <code>TRUSTED_PROXIES</code> (IP/CIDR) &amp; <code>OVERWRITEPROTOCOL=https</code>, headers de sécurité, fail2ban, 
+                    politique d’apps (liste blanche), quotas &amp; 2FA.</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Sauvegardes -->
+            <div class="faq-item">
+              <div class="question" onclick="toggleAnswer('backup', this)">
+                Sauvegardes & restauration
+                <span class="arrow-icon">▼</span>
+              </div>
+              <div class="answer" id="backup">
+<pre><code class="language-bash">#!/usr/bin/env bash
+set -euo pipefail
+STAMP=$(date +%F_%H%M)
+mkdir -p backups
+mysqldump -u nextcloud -pnextcloudpass -h 127.0.0.1 nextcloud &gt; backups/db_${STAMP}.sql
+tar -czf backups/config_${STAMP}.tar.gz config/
+tar -czf backups/data_${STAMP}.tar.gz data/
+find backups -type f -mtime +14 -delete
+echo "Backup OK -&gt; ${STAMP}"</code></pre>
+                <p class="soft"><strong>Restauration</strong> : <code>docker compose down</code> → restaurer <em>db SQL</em>, <em>config/</em>, <em>data/</em> → <code>docker compose up -d</code> → vérifier logs, <code>occ maintenance:mode --off</code> si nécessaire.</p>
+              </div>
+            </div>
+
+            <!-- Résultats & bilan -->
+            <div class="faq-item">
+              <div class="question" onclick="toggleAnswer('results', this)">
+                Résultats & bilan
+                <span class="arrow-icon">▼</span>
+              </div>
+              <div class="answer" id="results">
+                <ul>
+                  <li><strong>Plateforme unique</strong> de partage & collaboration</li>
+                  <li><strong>Moins d’e-mails lourds</strong>, liens sécurisés</li>
+                  <li><strong>Accès multi-devices</strong> (web/bureau/mobile)</li>
+                  <li>Base solide pour <strong>montée en charge</strong> et ouverture sécurisée</li>
+                </ul>
+                <h5 class="mt-3 mb-2">Bilan personnel</h5>
+                <ul>
+                  <li>Déploiement <strong>Nextcloud (Apache) + MariaDB LTS + Redis</strong> en Docker</li>
+                  <li>Persistances propres (<code>data/</code>, <code>config/</code>, <code>custom_apps/</code>, <code>db/</code>)</li>
+                  <li>Optimisations clés (<strong>APCu</strong>, <strong>Redis</strong>, <strong>cron</strong>) &amp; paliers de sécurité</li>
+                  <li>Projet <strong>industrializable</strong> et réutilisable pour d’autres services</li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+        </div>
       </div><!-- /container -->
     </section><!-- End Portfolio Details -->
   </main><!-- End #main -->
