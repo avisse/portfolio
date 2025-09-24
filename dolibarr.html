@@ -345,81 +345,143 @@ ss -ltnp | grep 8087 || echo "8087 libre"</code></pre>
       <p class="muted">On démontre un workflow RH simple : employé → manager/admin, avec journalisation.</p>
     </section>
 
-    <!-- Captures -->
-    <section id="captures" class="card">
-      <h2>7) Captures du POC</h2>
-      <p class="muted">Place tes images dans <code>docs/captures/</code>. Noms de fichiers recommandés (sans espaces ni accents) :</p>
-      <ul class="list">
-      </ul>
+    <!-- ========= 7) CAPTURES AVEC LIGHTBOX ========= -->
+<section id="captures" class="card">
+  <h2>7) Galerie de captures (POC Dolibarr)</h2>
+  <p class="muted">
+    Vous trouverez ci-dessous l’ensemble de mes captures illustrant le déploiement, le
+    paramétrage et les deux scénarios (Finance & RH). <b>Cliquez sur une image</b> pour l’agrandir.
+  </p>
 
-      <!-- Galerie — chemins adaptés à assets/img/Dolibar/ -->
-<div class="gallery">
-  <figure class="fig">
-    <img src="assets/img/Dolibar/dolibarr.png" alt="Écran de login Dolibarr">
-    <figcaption>Accueil / Login Dolibarr</figcaption>
-  </figure>
+  <!-- Galerie — chemins adaptés à assets/img/Dolibar/ -->
+  <div class="gallery">
+    <figure class="fig">
+      <img src="assets/img/Dolibar/dolibarr.png" alt="Écran de login Dolibarr">
+      <figcaption>Accueil / Login Dolibarr</figcaption>
+    </figure>
 
-  <figure class="fig">
-    <img src="assets/img/Dolibar/param%C3%A9trage%20des%20module%20.png" alt="Paramétrage des modules">
-    <figcaption>Activation des modules essentiels</figcaption>
-  </figure>
+    <figure class="fig">
+      <img src="assets/img/Dolibar/param%C3%A9trage%20des%20module%20.png" alt="Paramétrage des modules">
+      <figcaption>Activation des modules essentiels</figcaption>
+    </figure>
 
-  <figure class="fig">
-    <img src="assets/img/Dolibar/creation%20de%20service%20propos%C3%A9.png" alt="Création d'un service">
-    <figcaption>Catalogue : service “Formation bureautique”</figcaption>
-  </figure>
+    <figure class="fig">
+      <img src="assets/img/Dolibar/creation%20de%20service%20propos%C3%A9.png" alt="Création d'un service">
+      <figcaption>Catalogue : service “Formation bureautique”</figcaption>
+    </figure>
 
-  <figure class="fig">
-    <img src="assets/img/Dolibar/creation%20de%20client.png" alt="Création client">
-    <figcaption>Création du client “Association Quartier Nord”</figcaption>
-  </figure>
+    <figure class="fig">
+      <img src="assets/img/Dolibar/creation%20de%20client.png" alt="Création client">
+      <figcaption>Création du client “Association Quartier Nord”</figcaption>
+    </figure>
 
-  <figure class="fig">
-    <img src="assets/img/Dolibar/facture%20client.png" alt="Facture client">
-    <figcaption>Facture client (150 € HT)</figcaption>
-  </figure>
+    <figure class="fig">
+      <img src="assets/img/Dolibar/facture%20client.png" alt="Facture client">
+      <figcaption>Facture client (150 € HT)</figcaption>
+    </figure>
 
-  <figure class="fig">
-    <img src="assets/img/Dolibar/validation%20de%20facture.png" alt="Validation de la facture">
-    <figcaption>Validation de la facture client</figcaption>
-  </figure>
+    <figure class="fig">
+      <img src="assets/img/Dolibar/validation%20de%20facture.png" alt="Validation de la facture">
+      <figcaption>Validation de la facture client</figcaption>
+    </figure>
 
-  <figure class="fig">
-    <img src="assets/img/Dolibar/compte%20alice%20martin%20test%20.png" alt="Compte employée Alice Martin">
-    <figcaption>Fiche employée : Alice Martin</figcaption>
-  </figure>
+    <figure class="fig">
+      <img src="assets/img/Dolibar/compte%20alice%20martin%20test%20.png" alt="Compte employée Alice Martin">
+      <figcaption>Fiche employée : Alice Martin</figcaption>
+    </figure>
 
-  <figure class="fig">
-    <img src="assets/img/Dolibar/param%C3%A9trage%20cong%C3%A9.png" alt="Paramétrage des congés">
-    <figcaption>Permissions congés (Alice)</figcaption>
-  </figure>
+    <figure class="fig">
+      <img src="assets/img/Dolibar/param%C3%A9trage%20cong%C3%A9.png" alt="Paramétrage des congés">
+      <figcaption>Permissions congés (Alice)</figcaption>
+    </figure>
 
-  <figure class="fig">
-    <img src="assets/img/Dolibar/creation%20de%20cong%C3%A9.png" alt="Création d'une demande de congé">
-    <figcaption>Demande de congé (Alice)</figcaption>
-  </figure>
+    <figure class="fig">
+      <img src="assets/img/Dolibar/creation%20de%20cong%C3%A9.png" alt="Création d'une demande de congé">
+      <figcaption>Demande de congé (Alice)</figcaption>
+    </figure>
 
-  <figure class="fig">
-    <img src="assets/img/Dolibar/cong%C3%A9%20acceptation.png" alt="Congé approuvé">
-    <figcaption>Validation du congé (statut Approuvée)</figcaption>
-  </figure>
+    <figure class="fig">
+      <img src="assets/img/Dolibar/cong%C3%A9%20acceptation.png" alt="Congé approuvé">
+      <figcaption>Validation du congé (statut Approuvée)</figcaption>
+    </figure>
 
-  <!-- bonus finance si tu veux les montrer aussi -->
-  <figure class="fig">
-    <img src="assets/img/Dolibar/facturation%20ok%20.png" alt="Facturation OK">
-    <figcaption>Facture client validée (TTC 180€)</figcaption>
-  </figure>
-  <figure class="fig">
-    <img src="assets/img/Dolibar/reglement%20de%20facturation.png" alt="Règlement de la facture">
-    <figcaption>Enregistrement du règlement</figcaption>
-  </figure>
-  <figure class="fig">
-    <img src="assets/img/Dolibar/validation%20de%20cong%C3%A9.png" alt="Validation de congé (autre vue)">
-    <figcaption>Suivi & historique RH</figcaption>
-  </figure>
+    <!-- Bonus Finance -->
+    <figure class="fig">
+      <img src="assets/img/Dolibar/facturation%20ok%20.png" alt="Facturation OK">
+      <figcaption>Facture client validée (TTC 180 €)</figcaption>
+    </figure>
+    <figure class="fig">
+      <img src="assets/img/Dolibar/reglement%20de%20facturation.png" alt="Règlement de la facture">
+      <figcaption>Enregistrement du règlement</figcaption>
+    </figure>
+    <figure class="fig">
+      <img src="assets/img/Dolibar/validation%20de%20cong%C3%A9.png" alt="Validation de congé (autre vue)">
+      <figcaption>Suivi & historique RH</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ========= LIGHTBOX (CSS + HTML + JS) ========= -->
+<style>
+  /* Overlay plein écran */
+  .lightbox{
+    position:fixed; inset:0; display:none;
+    background:rgba(0,0,0,.85);
+    align-items:center; justify-content:center;
+    z-index:9999; padding:24px;
+  }
+  .lightbox.open{ display:flex; }
+  .lightbox__img{
+    max-width:min(95vw,1400px);
+    max-height:85vh; width:auto; height:auto;
+    box-shadow:0 10px 40px rgba(0,0,0,.6);
+    border-radius:10px;
+  }
+  .lightbox__caption{
+    color:#e8eefc; text-align:center; margin-top:10px; font-size:1rem;
+  }
+  .lightbox__close{
+    position:absolute; top:14px; right:18px;
+    background:transparent; border:0; color:#fff;
+    font-size:32px; cursor:pointer; line-height:1;
+  }
+</style>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox__close" aria-label="Fermer">×</button>
+  <div>
+    <img class="lightbox__img" id="lightboxImg" src="" alt="">
+    <div class="lightbox__caption" id="lightboxCaption"></div>
+  </div>
 </div>
-    </section>
 
+<script>
+  (function(){
+    const box   = document.getElementById('lightbox');
+    const imgEl = document.getElementById('lightboxImg');
+    const capEl = document.getElementById('lightboxCaption');
+    const close = box.querySelector('.lightbox__close');
+
+    // Ouvrir au clic sur une image de la galerie
+    document.querySelectorAll('#captures .gallery img').forEach(img=>{
+      img.style.cursor='zoom-in';
+      img.addEventListener('click', ()=>{
+        imgEl.src = img.src;
+        imgEl.alt = img.alt || '';
+        // Si on a une légende <figcaption>, on l’utilise
+        const cap = img.closest('figure')?.querySelector('figcaption')?.textContent?.trim();
+        capEl.textContent = cap || img.alt || '';
+        box.classList.add('open');
+      });
+    });
+
+    // Fermer : bouton, clic en dehors, ou ESC
+    const closeBox = ()=> box.classList.remove('open');
+    close.addEventListener('click', closeBox);
+    box.addEventListener('click', (e)=>{ if(e.target===box) closeBox(); });
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeBox(); });
+  })();
+</script>
     <!-- Exploitation -->
     <section id="ops" class="card">
       <h2>8) Exploitation & bonnes pratiques</h2>
