@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>POC ERP Dolibarr – Collectivité</title>
+  <meta name="description" content="Preuve de faisabilité (POC) Dolibarr en Docker pour une collectivité : déploiement, paramétrage, scénarios Finance et RH."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f1220;
+      --panel:#151935;
+      --muted:#99a2c2;
+      --text:#e7ecff;
+      --accent:#6ee7b7;
+      --accent-2:#60a5fa;
+      --border:rgba(255,255,255,.08);
+      --code:#0b0e1d;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      color:var(--text);
+      background:
+        radial-gradient(80rem 50rem at -20% -10%, #1a1f46 0%, transparent 60%),
+        radial-gradient(60rem 40rem at 120% -10%, #17324f 0%, transparent 60%),
+        var(--bg);
+      line-height:1.55;
+    }
+    .container{max-width:1100px;margin:0 auto;padding:32px}
+    header.hero{
+      padding:72px 0 40px;
+      text-align:center;
+    }
+    .badge{
+      display:inline-block;
+      font-size:.8rem;
+      padding:.3rem .6rem;
+      border:1px solid var(--border);
+      color:var(--muted);
+      border-radius:999px;
+      margin-bottom:10px;
+      background:rgba(255,255,255,.03);
+    }
+    h1{
+      font-size:clamp(1.8rem,3.2vw,2.6rem);
+      margin:.2rem 0 0.6rem;
+      letter-spacing:.2px;
+    }
+    .subtitle{color:var(--muted);max-width:850px;margin:0 auto 20px}
+    .grid{
+      display:grid;
+      gap:18px;
+      grid-template-columns:repeat(12,1fr);
+    }
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:18px 20px;
+      backdrop-filter:saturate(140%) blur(8px);
+      box-shadow:0 10px 30px rgba(0,0,0,.25);
+    }
+    .card h3{margin:.2rem 0 .6rem}
+    .muted{color:var(--muted)}
+    .kpi{display:flex;gap:16px;flex-wrap:wrap;margin:20px 0}
+    .kpi .pill{
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:10px 14px;
+      background:rgba(255,255,255,.03);
+      font-weight:600;
+    }
+    .toc{
+      display:flex;gap:10px;flex-wrap:wrap;margin-top:10px
+    }
+    .toc a{
+      color:var(--accent-2);text-decoration:none;border:1px solid var(--border);
+      padding:8px 12px;border-radius:10px;background:rgba(96,165,250,.08)
+    }
+    section{margin:36px 0}
+    h2{margin:0 0 12px;font-size:1.5rem}
+    h4{margin:18px 0 6px}
+    code,pre{
+      font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+      font-size:.95rem;
+    }
+    pre{
+      background:var(--code);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:14px 14px;
+      overflow:auto;
+      position:relative;
+      margin:12px 0 18px;
+    }
+    .copy{
+      position:absolute;right:10px;top:10px;
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border:1px solid var(--border);color:var(--text);
+      padding:6px 10px;border-radius:8px;cursor:pointer;font-size:.8rem
+    }
+    .callout{
+      border-left:4px solid var(--accent);
+      background:rgba(110,231,183,.08);
+      padding:12px 14px;border-radius:10px;margin:12px 0;color:#d0ffe9
+    }
+    .gallery{
+      display:grid;gap:14px;
+      grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+    }
+    .fig{
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--border);
+      border-radius:12px;overflow:hidden
+    }
+    .fig img{width:100%;display:block}
+    .fig figcaption{
+      padding:8px 10px;font-size:.9rem;color:var(--muted);border-top:1px solid var(--border)
+    }
+    footer{
+      margin:50px 0 10px;text-align:center;color:var(--muted);font-size:.9rem
+    }
+    .tag{display:inline-block;padding:.25rem .5rem;border-radius:8px;border:1px solid var(--border);margin-right:6px;color:var(--muted)}
+    .list{padding-left:18px;margin:8px 0}
+    .hl{color:var(--accent)}
+    .twocol{display:grid;gap:16px;grid-template-columns:1fr; }
+    @media(min-width:920px){ .twocol{grid-template-columns:1fr 1fr;} }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="hero">
+      <span class="badge">POC Collectivité • ERP Open Source</span>
+      <h1>Dolibarr en Docker – Preuve de faisabilité (A → Z)</h1>
+      <p class="subtitle">Déploiement reproductible, paramétrage en français, démonstrations métiers <b>Finance</b> (factures client/fournisseur) et <b>RH</b> (congé agent) — le tout dans un dossier versionné.</p>
+      <div class="kpi">
+        <span class="pill">⏱️ Mise en place rapide</span>
+        <span class="pill">💾 Données persistantes</span>
+        <span class="pill">🧩 Modules activables</span>
+        <span class="pill">🔐 Permissions RH</span>
+      </div>
+      <div class="toc">
+        <a href="#resume">Résumé</a>
+        <a href="#archi">Architecture</a>
+        <a href="#setup">Mise en place</a>
+        <a href="#param">Paramétrage</a>
+        <a href="#donnees">Catalogue & Tiers</a>
+        <a href="#scenario1">Scénario Finance</a>
+        <a href="#scenario2">Scénario RH</a>
+        <a href="#captures">Captures</a>
+        <a href="#ops">Exploitation</a>
+      </div>
+    </header>
+
+    <!-- Résumé -->
+    <section id="resume" class="card">
+      <h2>0) Résumé exécutif</h2>
+      <p><b>Faisabilité :</b> déploiement d’un ERP open-source (<span class="hl">Dolibarr</span>) en &lt; 1h sur Debian 12 via Docker Compose, avec persistance. </p>
+      <ul class="list">
+        <li><b>Finance :</b> 1 produit + 1 service, <i>1 client</i>, <i>1 fournisseur</i>, <i>1 facture client (150 € HT)</i>, <i>1 facture fournisseur (100 € HT)</i>.</li>
+        <li><b>RH :</b> création d’un agent, permissions Congés, demande (RTT 1 jour) validée par l’admin.</li>
+      </ul>
+      <p><b>Valeur Collectivité :</b> solution gratuite, francisée, modulaire, simple à administrer, traçable, extensible (mails, PDF, reporting, SSO) pour un pilote 30–50 comptes.</p>
+    </section>
+
+    <!-- Architecture -->
+    <section id="archi" class="card">
+      <h2>1) Contexte & choix d’architecture</h2>
+      <div class="twocol">
+        <div>
+          <p><b>Pourquoi Dolibarr ?</b> léger, modulaire, communauté FR, ergonomie simple. <b>ERPNext</b> est excellent mais plus lourd (Frappe/Redis/Workers) : pas optimal pour un POC express.</p>
+          <p class="muted"><span class="tag">OS: Debian 12</span> <span class="tag">Containers: mariadb:10.11 + tuxgasy/dolibarr</span> <span class="tag">Port: 8087</span> <span class="tag">Langue: FR</span></p>
+        </div>
+        <div>
+<pre><button class="copy" data-for="tree">Copier</button><code id="tree">projet-ecf/
+└─ dolibarr/
+   ├─ .env
+   ├─ docker-compose.yml
+   └─ volumes/
+      ├─ mariadb/      # données SQL persistantes
+      └─ dolibarr/     # documents/PDF</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mise en place -->
+    <section id="setup" class="card">
+      <h2>2) Mise en place (pas à pas)</h2>
+      <h4>2.1 Pré-requis OS</h4>
+<pre><button class="copy" data-for="os">Copier</button><code id="os">sudo apt update
+sudo apt install -y docker.io docker-compose-plugin
+sudo usermod -aG docker $USER   # puis déconnexion/reconnexion</code></pre>
+
+      <h4>2.2 Projet & volumes</h4>
+<pre><button class="copy" data-for="mk">Copier</button><code id="mk">mkdir -p ~/projet-ecf/dolibarr/{volumes/dolibarr,volumes/mariadb}
+cd ~/projet-ecf/dolibarr</code></pre>
+
+      <h4>2.3 Fichier <code>.env</code></h4>
+<pre><button class="copy" data-for="env">Copier</button><code id="env">MYSQL_ROOT_PASSWORD=changeme-root
+MYSQL_DATABASE=dolibarr
+MYSQL_USER=dolibarr
+MYSQL_PASSWORD=changeme
+DOLI_HTTP_PORT=8087</code></pre>
+
+      <h4>2.4 <code>docker-compose.yml</code></h4>
+<pre><button class="copy" data-for="compose">Copier</button><code id="compose">services:
+  db:
+    image: mariadb:10.11
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - ./volumes/mariadb:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  dolibarr:
+    image: tuxgasy/dolibarr:latest
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DOLI_DB_HOST: db
+      DOLI_DB_NAME: ${MYSQL_DATABASE}
+      DOLI_DB_USER: ${MYSQL_USER}
+      DOLI_DB_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "${DOLI_HTTP_PORT}:80"
+    volumes:
+      - ./volumes/dolibarr:/var/www/html/documents</code></pre>
+
+      <h4>2.5 Démarrage & contrôle</h4>
+<pre><button class="copy" data-for="run">Copier</button><code id="run">docker compose up -d
+docker compose ps
+# Accès: http://localhost:8087
+ss -ltnp | grep 8087 || echo "8087 libre"</code></pre>
+
+      <div class="callout">
+        Assistant Dolibarr → Base <b>db</b>, BDD <b>dolibarr</b>, user <b>dolibarr</b> / pass <b>changeme</b>.  
+        Puis créer le compte administrateur.  
+        <b>Configuration → Affichage → Français</b>.
+      </div>
+    </section>
+
+    <!-- Paramétrage -->
+    <section id="param" class="card">
+      <h2>3) Paramétrage initial</h2>
+      <h4>3.1 Société</h4>
+      <p><b>Configuration → Société/Organisation</b> : <i>VilleDemo</i>, France, adresse. Enregistrer.</p>
+      <h4>3.2 Modules</h4>
+      <ul class="list">
+        <li><b>Utilisateurs & Groupes</b></li>
+        <li><b>Tiers</b> (clients/fournisseurs)</li>
+        <li><b>Produits</b> & <b>Services</b></li>
+        <li><b>Facturation</b> (clients & fournisseurs)</li>
+        <li><b>Congés/Absences</b> (RH)</li>
+      </ul>
+    </section>
+
+    <!-- Données -->
+    <section id="donnees" class="card">
+      <h2>4) Données de démonstration</h2>
+      <div class="twocol">
+        <div>
+          <h4>Catalogue</h4>
+          <ul class="list">
+            <li><b>Service</b> : <i>Formation bureautique</i> — 150,00 € HT — TVA 20 % — En vente: Oui</li>
+            <li><b>Produit</b> : <i>Ramettes papier A4</i> — 100,00 € HT — TVA 20 % — En vente: Oui</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Tiers</h4>
+          <ul class="list">
+            <li><b>Client</b> : Association Quartier Nord</li>
+            <li><b>Fournisseur</b> : Papeterie Sud</li>
+          </ul>
+        </div>
+      </div>
+      <p class="muted">On crée d’abord le catalogue → ensuite on sélectionne ces éléments dans les documents (devis, factures…).</p>
+    </section>
+
+    <!-- Scénario Finance -->
+    <section id="scenario1" class="card">
+      <h2>5) Scénario #1 — Finance (factures)</h2>
+      <div class="twocol">
+        <div>
+          <h4>5.1 Facture client</h4>
+          <ol class="list">
+            <li>Facturation → <b>Factures clients → Nouvelle facture</b></li>
+            <li>Client : <i>Association Quartier Nord</i> ; Type : <i>standard</i></li>
+            <li>Ajouter ligne → <b>Service</b> <i>Formation bureautique</i> (150 € HT)</li>
+            <li><b>Valider</b> la facture (HT 150 / TVA 30 / TTC 180)</li>
+            <li>(Option) <b>Règlement</b> : encaissement carte → statut Payée</li>
+          </ol>
+        </div>
+        <div>
+          <h4>5.2 Facture fournisseur</h4>
+          <ol class="list">
+            <li>Facturation → <b>Factures fournisseur → Nouvelle facture</b></li>
+            <li>Fournisseur : <i>Papeterie Sud</i> ; Type : <i>standard</i></li>
+            <li>Ajouter ligne → <b>Produit</b> <i>Ramettes papier A4</i> (100 € HT)</li>
+            <li><b>Valider</b> (HT 100 / TVA 20 / TTC 120)</li>
+          </ol>
+        </div>
+      </div>
+      <p class="muted">On démontre le cycle achat/vente, la traçabilité et la génération documentaire (PDF).</p>
+    </section>
+
+    <!-- Scénario RH -->
+    <section id="scenario2" class="card">
+      <h2>6) Scénario #2 — RH (congés)</h2>
+      <div class="twocol">
+        <div>
+          <h4>6.1 Employé & permissions</h4>
+          <ol class="list">
+            <li>Utilisateurs & Groupes → <b>Nouvel utilisateur</b> : <i>Alice Martin</i> (`amartin`) — <b>Salarié: Oui</b></li>
+            <li>Onglet <b>Permissions</b> → Congés :  
+              <ul class="list">
+                <li>✅ Lire vos demandes</li>
+                <li>✅ Créer/modifier vos demandes</li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+        <div>
+          <h4>6.2 Demande & validation</h4>
+          <ol class="list">
+            <li>Connexion Alice → GRH → <b>Nouvelle demande</b> (RTT, 1 jour)</li>
+            <li>Connexion SuperAdmin → <b>Approuver/Valider</b> la demande</li>
+            <li>Statut final : <b>Approuvée</b> (historique : demandé par Alice / approuvé par SuperAdmin)</li>
+          </ol>
+        </div>
+      </div>
+      <p class="muted">On démontre un workflow RH simple : employé → manager/admin, avec journalisation.</p>
+    </section>
+
+    <!-- Captures -->
+    <section id="captures" class="card">
+      <h2>7) Captures du POC</h2>
+      <p class="muted">Place tes images dans <code>docs/captures/</code>. Noms de fichiers recommandés (sans espaces ni accents) :</p>
+      <ul class="list">
+        <li>dolibarr_login.png • parametrage_modules.png • creation_client.png • facture_client.png • validation_facture.png • reglement_facture.png</li>
+        <li>creation_service.png • compte_alice.png • parametrage_conges.png • creation_conge.png • conge_approuve.png</li>
+      </ul>
+
+      <div class="gallery">
+        <!-- Remplace les src ci-dessous par tes vrais chemins si besoin -->
+        <figure class="fig">
+          <img src="docs/captures/dolibarr_login.png" alt="Écran de login Dolibarr">
+          <figcaption>Accueil / Login Dolibarr</figcaption>
+        </figure>
+        <figure class="fig">
+          <img src="docs/captures/parametrage_modules.png" alt="Paramétrage des modules">
+          <figcaption>Activation des modules essentiels</figcaption>
+        </figure>
+        <figure class="fig">
+          <img src="docs/captures/creation_service.png" alt="Création d'un service">
+          <figcaption>Catalogue : service “Formation bureautique”</figcaption>
+        </figure>
+        <figure class="fig">
+          <img src="docs/captures/creation_client.png" alt="Création client">
+          <figcaption>Création du client “Association Quartier Nord”</figcaption>
+        </figure>
+        <figure class="fig">
+          <img src="docs/captures/facture_client.png" alt="Facture client">
+          <figcaption>Facture client (150 € HT)</figcaption>
+        </figure>
+        <figure class="fig">
+          <img src="docs/captures/validation_facture.png" alt="Validation facture">
+          <figcaption>Validation de la facture client</figcaption>
+        </figure>
+        <figure class="fig">
+          <img src="docs/captures/compte_alice.png" alt="Compte employé">
+          <figcaption>Fiche employée : Alice Martin</figcaption>
+        </figure>
+        <figure class="fig">
+          <img src="docs/captures/parametrage_conges.png" alt="Paramétrage congés">
+          <figcaption>Permissions congés (Alice)</figcaption>
+        </figure>
+        <figure class="fig">
+          <img src="docs/captures/creation_conge.png" alt="Création d'une demande de congé">
+          <figcaption>Demande de congé (Alice)</figcaption>
+        </figure>
+        <figure class="fig">
+          <img src="docs/captures/conge_approuve.png" alt="Congé approuvé">
+          <figcaption>Validation du congé (statut Approuvée)</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Exploitation -->
+    <section id="ops" class="card">
+      <h2>8) Exploitation & bonnes pratiques</h2>
+      <div class="twocol">
+        <div>
+          <h4>Commandes utiles</h4>
+<pre><button class="copy" data-for="ops1">Copier</button><code id="ops1"># démarrer / arrêter
+docker compose up -d
+docker compose down
+
+# logs
+docker compose logs -f --tail=100 db
+docker compose logs -f --tail=100 dolibarr
+
+# sauvegarde volumes
+tar -czf backup-dolibarr-$(date +%F).tgz volumes/</code></pre>
+        </div>
+        <div>
+          <h4>Reset mot de passe admin (si besoin)</h4>
+<pre><button class="copy" data-for="ops2">Copier</button><code id="ops2">DB_ID=$(docker ps -qf "name=_db_")
+docker exec -it "$DB_ID" mysql -u dolibarr -pchangeme dolibarr -e "
+UPDATE llx_user
+SET login='admin', pass_crypted=MD5('admin123')
+WHERE login='admin' OR rowid=1;
+SELECT rowid, login FROM llx_user;"</code></pre>
+        </div>
+      </div>
+      <p class="muted">Sécurité : secrets plus robustes, reverse-proxy + HTTPS, sauvegardes régulières (mysqldump + documents), rôles/permissions, mises à jour d’images.</p>
+    </section>
+
+    <footer>
+      <p>POC Dolibarr • Collectivité — réalisé avec Docker • <span class="hl">Finance</span> & <span class="hl">RH</span> scénarisés.</p>
+    </footer>
+  </div>
+
+  <script>
+    document.querySelectorAll('.copy').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const id = btn.getAttribute('data-for');
+        const el = document.getElementById(id);
+        navigator.clipboard.writeText(el.textContent).then(()=>{
+          const old = btn.textContent;
+          btn.textContent = 'Copié ✓';
+          setTimeout(()=>btn.textContent=old,1200);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
