@@ -82,6 +82,10 @@
     .thumb-dots{display:flex;justify-content:center;gap:6px;padding-top:8px}
     .thumb-dots button{width:6px;height:6px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.25)}
     .thumb-dots button.active{background:var(--brand)}
+      /* OVERRIDES: Galerie photo plus large, 3 vignettes, sans flèches */
+    :root{--thumb:96px}
+    .thumb-carousel{max-width:1040px; padding:16px}
+    .thumb-track{gap:12px}
   </style>
 </head>
 <body>
@@ -108,20 +112,17 @@
       </div>
     </section>
 
-    <!-- CARROUSEL MINI EN VIGNETTES (3 visibles) -->
-    <section class="thumb-carousel" aria-label="Aperçu vignettes">
+    <!-- GALERIE PHOTO (vignettes, swipe + dots, sans flèches) -->
+    <section class="thumb-carousel" aria-label="Galerie photo">
+      <h2 style="margin:0 0 10px;font-size:20px">Galerie photo</h2>
       <div class="thumb-viewport">
-        <div class="thumb-track" id="thumb-track">
+        <div class="thumb-track" id="thumb-track" style="gap:12px">
           <button class="thumb" data-src="assets/img/egalite.PNG" aria-label="Voir diapo 1"><img src="assets/img/egalite.PNG" alt="Diapo 1"></button>
           <button class="thumb" data-src="assets/img/inégalite01.PNG" aria-label="Voir diapo 2"><img src="assets/img/inégalite01.PNG" alt="Diapo 2"></button>
           <button class="thumb" data-src="assets/img/inégalite02.PNG" aria-label="Voir diapo 3"><img src="assets/img/inégalite02.PNG" alt="Diapo 3"></button>
           <button class="thumb" data-src="assets/img/inégalite03.PNG" aria-label="Voir diapo 4"><img src="assets/img/inégalite03.PNG" alt="Diapo 4"></button>
           <button class="thumb" data-src="assets/img/inégalite04.PNG" aria-label="Voir diapo 5"><img src="assets/img/inégalite04.PNG" alt="Diapo 5"></button>
         </div>
-      </div>
-      <div class="thumb-nav" aria-hidden="true">
-        <button class="thumb-btn prev" id="thumb-prev" aria-label="Précédent">‹</button>
-        <button class="thumb-btn next" id="thumb-next" aria-label="Suivant">›</button>
       </div>
       <div class="thumb-dots" id="thumb-dots" role="tablist" aria-label="Navigation vignettes"></div>
     </section>
@@ -235,25 +236,24 @@
     const lb=document.getElementById('lb');
     const img=document.getElementById('lb-img');
     document.addEventListener('click', (e)=>{
-      const t=e.target.closest('.lb, .thumb');
+      const t=e.target.closest('.thumb');
       if(t && t.dataset && t.dataset.src){ img.src=t.dataset.src; lb.classList.add('show'); }
-      else if(t && t.tagName==='IMG' && t.classList.contains('lb')){ img.src=t.src; lb.classList.add('show'); }
     });
     lb.addEventListener('click',e=>{ if(e.target===lb) lb.classList.remove('show');});
 
-    // Mini carousel (3 thumbs visible)
+    // Galerie photo — swipe + dots uniquement
     (function(){
       const track=document.getElementById('thumb-track');
       if(!track) return;
-      const prev=document.getElementById('thumb-prev');
-      const next=document.getElementById('thumb-next');
       const dots=document.getElementById('thumb-dots');
       const thumbs=Array.from(track.children);
       const perView=3; // 3 visibles
+      let gap=parseInt(getComputedStyle(track).gap||'12',10);
+      function unit(){ return parseInt(getComputedStyle(document.documentElement).getPropertyValue('--thumb')) + gap; }
       const pages=Math.max(1, Math.ceil(thumbs.length / perView));
       let page=0;
       function render(){
-        track.style.transform=`translateX(${-page*(parseInt(getComputedStyle(document.documentElement).getPropertyValue('--thumb'))+10)*perView}px)`;
+        track.style.transform=`translateX(${-page*unit()*perView}px)`;
         dots.innerHTML='';
         for(let i=0;i<pages;i++){
           const b=document.createElement('button');
@@ -262,9 +262,15 @@
           dots.appendChild(b);
         }
       }
-      function go(d){ page=(page+d+pages)%pages; render(); }
-      prev.addEventListener('click',()=>go(-1));
-      next.addEventListener('click',()=>go(1));
+      // pointer swipe (souris + tactile)
+      let startX=null;
+      track.addEventListener('pointerdown',e=>{ startX=e.clientX; track.setPointerCapture(e.pointerId); });
+      track.addEventListener('pointerup',e=>{
+        if(startX==null) return; const dx=e.clientX-startX; const th=40; // seuil
+        if(Math.abs(dx)>th){ page = (page + (dx<0?1:-1) + pages) % pages; render(); }
+        startX=null;
+      });
+      window.addEventListener('resize',()=>{ gap=parseInt(getComputedStyle(track).gap||'12',10); render(); });
       render();
     })();
   </script>
