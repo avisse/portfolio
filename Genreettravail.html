@@ -94,6 +94,17 @@
     .thumb-dots button{width:12px;height:12px;border-radius:999px;border:2px solid var(--border);background:rgba(255,255,255,.35);cursor:pointer}
     .thumb-dots button.active{background:var(--brand); transform:scale(1.15)}
     .lightbox img{max-width:96vw;max-height:92vh;border-radius:12px}
+      /* --- Galerie v2 : scroll-snap + vignettes plus grandes, centrées --- */
+    :root{--thumb:148px; --thumb-gap:16px}
+    .thumb-viewport{overflow:hidden; width: calc(var(--thumb)*3 + var(--thumb-gap)*2); margin: 0 auto}
+    .thumb-track{display:flex; gap:var(--thumb-gap); overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; padding-bottom:6px; scrollbar-width:none}
+    .thumb-track::-webkit-scrollbar{display:none}
+    .thumb{flex:0 0 var(--thumb); height:var(--thumb); scroll-snap-align:center; cursor:zoom-in; border:1px solid var(--border); border-radius:12px; background:var(--codebg); display:grid; place-items:center}
+    .thumb img{width:100%; height:100%; object-fit:cover; border-radius:10px}
+    .thumb-dots{display:flex; justify-content:center; gap:10px; padding-top:10px}
+    .thumb-dots button{width:12px; height:12px; border-radius:999px; border:2px solid var(--border); background:rgba(255,255,255,.35); cursor:pointer}
+    .thumb-dots button.active{background:var(--brand); transform:scale(1.15)}
+    .lightbox img{max-width:96vw; max-height:92vh; border-radius:12px}
   </style>
 </head>
 <body>
@@ -243,70 +254,74 @@
     // Lightbox (agrandissement au clic)
     const lb=document.getElementById('lb');
     const img=document.getElementById('lb-img');
-    document.addEventListener('click', (e)=>{
-      const btn=e.target.closest('.thumb');
-      if(btn){
+    document.querySelectorAll('.thumb').forEach(btn=>{
+      btn.addEventListener('click',(e)=>{
+        e.stopPropagation();
         const src = btn.dataset.src || btn.querySelector('img')?.src;
         if(src){ img.src=src; lb.classList.add('show'); }
-      }
+      });
     });
     lb.addEventListener('click',e=>{ if(e.target===lb) lb.classList.remove('show');});
 
-    // Galerie photo — swipe + dots + autoplay + click-to-paginate
+    // Galerie photo — scroll-snap + dots + autoplay + click/drag
     (function(){
       const track=document.getElementById('thumb-track');
       if(!track) return;
       const dots=document.getElementById('thumb-dots');
-      const carouselSection = track.closest('.thumb-carousel');
+      const section = track.closest('.thumb-carousel');
       const thumbs=Array.from(track.children);
       const perView=3; // 3 visibles
-      const gap=12;
-      function unit(){ return parseInt(getComputedStyle(document.documentElement).getPropertyValue('--thumb')) + gap; }
-      const pages=Math.max(1, Math.ceil(thumbs.length / perView));
-      let page=0; let timer=null; const delay=3500;
+      const delay=3500; let page=0; let timer=null; let isHover=false;
 
-      function render(){
-        track.style.transform=`translateX(${-page*unit()*perView}px)`;
+      function pageWidth(){
+        const cs=getComputedStyle(document.documentElement);
+        const s=parseInt(cs.getPropertyValue('--thumb'))||148;
+        const g=parseInt(cs.getPropertyValue('--thumb-gap'))||16;
+        return s*perView + g*(perView-1);
+      }
+      const pages=Math.max(1, Math.ceil(thumbs.length/perView));
+
+      function goTo(p){ page=(p+pages)%pages; track.scrollTo({left: page*pageWidth(), behavior:'smooth'}); renderDots(); }
+
+      function renderDots(){
         dots.innerHTML='';
         for(let i=0;i<pages;i++){
           const b=document.createElement('button');
           if(i===page) b.classList.add('active');
-          b.addEventListener('click',()=>{page=i; render(); restartAuto();});
+          b.addEventListener('click',()=>{ goTo(i); restart(); });
           dots.appendChild(b);
         }
       }
-      function next(){ page=(page+1)%pages; render(); }
-      function prev(){ page=(page-1+pages)%pages; render(); }
-      function startAuto(){ if(timer) return; timer=setInterval(next, delay); }
-      function stopAuto(){ if(timer){ clearInterval(timer); timer=null; } }
-      function restartAuto(){ stopAuto(); startAuto(); }
 
-      // Pointer swipe (souris + tactile)
-      let startX=null;
-      track.addEventListener('pointerdown',e=>{ startX=e.clientX; track.setPointerCapture(e.pointerId); stopAuto(); });
-      track.addEventListener('pointerup',e=>{
-        if(startX==null) return; const dx=e.clientX-startX; const th=40;
-        if(Math.abs(dx)>th){ page = (page + (dx<0?1:-1) + pages) % pages; render(); }
-        startX=null; restartAuto();
+      function start(){ if(timer||isHover) return; timer=setInterval(()=>goTo(page+1), delay); }
+      function stop(){ if(timer){ clearInterval(timer); timer=null; } }
+      function restart(){ stop(); start(); }
+
+      // Update page on scroll
+      let raf=null; track.addEventListener('scroll',()=>{
+        if(raf) cancelAnimationFrame(raf);
+        raf=requestAnimationFrame(()=>{
+          const p=Math.round(track.scrollLeft / pageWidth());
+          if(p!==page){ page=p; renderDots(); }
+        });
       });
 
-      // Click-to-paginate sur le fond de la piste (hors vignettes)
-      track.addEventListener('click', (e)=>{
-        if(e.target.closest('.thumb')) return; // clic sur une vignette = lightbox
-        const rect=track.getBoundingClientRect();
-        const x=e.clientX - rect.left;
-        if(x < rect.width/2) prev(); else next();
-        restartAuto();
+      // Click sur la piste (hors vignettes) pour paginer
+      track.addEventListener('click',(e)=>{
+        if(e.target.closest('.thumb')) return;
+        const r=track.getBoundingClientRect();
+        if((e.clientX - r.left) < r.width/2) goTo(page-1); else goTo(page+1);
+        restart();
       });
 
-      // Pause on hover/focus
-      carouselSection.addEventListener('mouseenter', stopAuto);
-      carouselSection.addEventListener('mouseleave', startAuto);
-      carouselSection.addEventListener('focusin', stopAuto);
-      carouselSection.addEventListener('focusout', startAuto);
+      // Drag/tactile natif (scroll-snap) + pause au survol
+      section.addEventListener('mouseenter',()=>{ isHover=true; stop(); });
+      section.addEventListener('mouseleave',()=>{ isHover=false; start(); });
 
-      render();
-      startAuto();
+      window.addEventListener('resize',()=>{ renderDots(); });
+
+      renderDots();
+      start();
     })();
   </script>
 </body>
