@@ -53,7 +53,7 @@
     .carousel-dot.active{background:var(--brand)}
       /* --- MINI CAROUSEL (3 thumbnails) --- */
     .thumb-carousel{position:relative;background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;margin:18px auto;max-width:1040px}
-    .thumb-viewport{overflow:hidden; width: calc(var(--thumb) * 3 + 24px); margin: 0 auto}
+    .thumb-viewport{overflow:hidden; width: calc(var(--thumb)*3 + var(--thumb-gap)*2); margin: 0 auto; position:relative}
     .thumb-track{display:flex;gap:12px;transition:transform .4s ease}
     :root{--thumb:84px}
     .thumb{flex:0 0 var(--thumb);height:var(--thumb);border:1px solid var(--border);border-radius:10px;background:var(--codebg);display:grid;place-items:center;cursor:pointer;padding:0}
@@ -86,6 +86,11 @@
     .thumb-dots button{width:12px; height:12px; border-radius:999px; border:2px solid var(--border); background:rgba(255,255,255,.35); cursor:pointer}
     .thumb-dots button.active{background:var(--brand); transform:scale(1.15)}
     .lightbox img{max-width:96vw; max-height:92vh; border-radius:12px}
+      /* Flèches style Slick */
+    .thumb-arrow{position:absolute; top:50%; transform:translateY(-50%); width:36px; height:36px; border-radius:999px; border:1px solid var(--border); background:rgba(0,0,0,.38); color:#fff; display:grid; place-items:center; cursor:pointer; box-shadow:var(--shadow)}
+    .thumb-arrow.left{left:-6px}
+    .thumb-arrow.right{right:-6px}
+    .thumb-arrow:hover{background:rgba(0,0,0,.55)}
   </style>
 </head>
 <body>
@@ -113,16 +118,19 @@
     </section>
 
     <!-- GALERIE PHOTO (vignettes, swipe + dots, sans flèches) -->
-    <section class="thumb-carousel" aria-label="Galerie photo">
+    <!-- GALERIE PHOTO (vignettes, flèches + dots) -->
+    <section class="thumb-carousel" aria-label="Galerie photo" tabindex="0">
       <h2 style="margin:0 0 10px;font-size:20px">Galerie photo</h2>
       <div class="thumb-viewport">
-        <div class="thumb-track" id="thumb-track" style="gap:12px">
+        <div class="thumb-track" id="thumb-track">
           <button class="thumb" data-src="assets/img/egalite.PNG" aria-label="Voir diapo 1"><img src="assets/img/egalite.PNG" alt="Diapo 1"></button>
           <button class="thumb" data-src="assets/img/inégalite01.PNG" aria-label="Voir diapo 2"><img src="assets/img/inégalite01.PNG" alt="Diapo 2"></button>
           <button class="thumb" data-src="assets/img/inégalite02.PNG" aria-label="Voir diapo 3"><img src="assets/img/inégalite02.PNG" alt="Diapo 3"></button>
           <button class="thumb" data-src="assets/img/inégalite03.PNG" aria-label="Voir diapo 4"><img src="assets/img/inégalite03.PNG" alt="Diapo 4"></button>
           <button class="thumb" data-src="assets/img/inégalite04.PNG" aria-label="Voir diapo 5"><img src="assets/img/inégalite04.PNG" alt="Diapo 5"></button>
         </div>
+        <button class="thumb-arrow left" id="thumb-prev" aria-label="Précédent">‹</button>
+        <button class="thumb-arrow right" id="thumb-next" aria-label="Suivant">›</button>
       </div>
       <div class="thumb-dots" id="thumb-dots" role="tablist" aria-label="Navigation vignettes"></div>
     </section>
@@ -210,7 +218,7 @@
     <img id="lb-img" alt="capture" />
   </div>
   <script>
-    // Lightbox (agrandissement au clic)
+    // Lightbox
     const lb=document.getElementById('lb');
     const img=document.getElementById('lb-img');
     document.querySelectorAll('.thumb').forEach(btn=>{
@@ -222,14 +230,16 @@
     });
     lb.addEventListener('click',e=>{ if(e.target===lb) lb.classList.remove('show');});
 
-    // Galerie photo — scroll-snap + dots + autoplay + click/drag
+    // Galerie photo — scroll-snap + dots + autoplay + flèches + drag/click
     (function(){
       const track=document.getElementById('thumb-track');
       if(!track) return;
       const dots=document.getElementById('thumb-dots');
       const section = track.closest('.thumb-carousel');
+      const prevBtn=document.getElementById('thumb-prev');
+      const nextBtn=document.getElementById('thumb-next');
       const thumbs=Array.from(track.children);
-      const perView=3; // 3 visibles
+      const perView=3; // visibles
       const delay=3500; let page=0; let timer=null; let isHover=false;
 
       function pageWidth(){
@@ -273,11 +283,16 @@
         restart();
       });
 
-      // Drag/tactile natif (scroll-snap) + pause au survol
+      // Flèches
+      prevBtn?.addEventListener('click',()=>{ goTo(page-1); restart(); });
+      nextBtn?.addEventListener('click',()=>{ goTo(page+1); restart(); });
+
+      // Pause on hover/focus + clavier
       section.addEventListener('mouseenter',()=>{ isHover=true; stop(); });
       section.addEventListener('mouseleave',()=>{ isHover=false; start(); });
-
-      window.addEventListener('resize',()=>{ renderDots(); });
+      section.addEventListener('focusin', stop);
+      section.addEventListener('focusout', start);
+      section.addEventListener('keydown', (e)=>{ if(e.key==='ArrowLeft') {goTo(page-1); restart();} if(e.key==='ArrowRight'){goTo(page+1); restart();} });
 
       renderDots();
       start();
