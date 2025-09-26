@@ -47,6 +47,18 @@
     footer{color:var(--muted);text-align:center;margin-top:28px}
     .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--border);border-radius:999px}
     .dot{width:8px;height:8px;border-radius:50%;background:var(--brand2)}
+      /* Carousel minimal */
+    .carousel{position:relative;background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px;overflow:hidden;margin:18px 0}
+    .carousel-viewport{overflow:hidden;border-radius:12px}
+    .carousel-track{display:flex;transition:transform .5s ease}
+    .carousel-slide{min-width:100%;display:flex;align-items:center;justify-content:center}
+    .carousel-slide img{width:100%;height:auto;display:block;border-radius:12px;border:1px solid var(--border);cursor:zoom-in}
+    .carousel-nav{position:absolute;inset:0;pointer-events:none}
+    .carousel-btn{pointer-events:auto;position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:999px;border:1px solid var(--border);background:rgba(0,0,0,.25);backdrop-filter:blur(6px);display:grid;place-items:center;cursor:pointer}
+    .carousel-prev{left:10px}.carousel-next{right:10px}
+    .carousel-dots{display:flex;gap:6px;justify-content:center;padding:10px}
+    .carousel-dot{width:8px;height:8px;border-radius:999px;background:rgba(255,255,255,.25);border:1px solid var(--border)}
+    .carousel-dot.active{background:var(--brand)}
   </style>
 </head>
 <body>
@@ -71,6 +83,24 @@
         <div class="card"><div class="stat">100%</div><div class="muted">Supports réutilisables (kit)</div></div>
         <div class="card"><div class="stat">OK</div><div class="muted">Plan d'action priorisé</div></div>
       </div>
+    </section>
+
+    <!-- CAROUSEL D'APERÇUS -->
+    <section class="carousel" aria-label="Aperçu rapide en carrousel">
+      <div class="carousel-viewport">
+        <div class="carousel-track" id="car-track">
+          <div class="carousel-slide"><img class="lb" src="assets/img/egalite.PNG" alt="Slide 1 – Présentation générale"/></div>
+          <div class="carousel-slide"><img class="lb" src="assets/img/inégalite01.PNG" alt="Slide 2 – Écarts et tendances"/></div>
+          <div class="carousel-slide"><img class="lb" src="assets/img/inégalite02.PNG" alt="Slide 3 – Indicateurs et KPI"/></div>
+          <div class="carousel-slide"><img class="lb" src="assets/img/inégalite03.PNG" alt="Slide 4 – Axes d'action"/></div>
+          <div class="carousel-slide"><img class="lb" src="assets/img/inégalite04.PNG" alt="Slide 5 – Recommandations"/></div>
+        </div>
+      </div>
+      <div class="carousel-nav" aria-hidden="true">
+        <button class="carousel-btn carousel-prev" id="car-prev" aria-label="Diapo précédente">◀</button>
+        <button class="carousel-btn carousel-next" id="car-next" aria-label="Diapo suivante">▶</button>
+      </div>
+      <div class="carousel-dots" id="car-dots" role="tablist" aria-label="Navigation du carrousel"></div>
     </section>
 
     <!-- CONTEXTE -->
@@ -185,6 +215,38 @@
       el.addEventListener('click',()=>{ img.src=el.src; lb.classList.add('show'); });
     });
     lb.addEventListener('click',e=>{ if(e.target===lb) lb.classList.remove('show');});
+
+    // Carousel minimal
+    (function(){
+      const track=document.getElementById('car-track');
+      if(!track) return; // safety if section removed
+      const slides=Array.from(track.children);
+      const prev=document.getElementById('car-prev');
+      const next=document.getElementById('car-next');
+      const dotsWrap=document.getElementById('car-dots');
+      let index=0;
+      function renderDots(){
+        dotsWrap.innerHTML='';
+        slides.forEach((_,i)=>{
+          const b=document.createElement('button');
+          b.className='carousel-dot'+(i===index?' active':'');
+          b.setAttribute('aria-label','Aller à la diapo '+(i+1));
+          b.addEventListener('click',()=>{index=i;update();});
+          dotsWrap.appendChild(b);
+        });
+      }
+      function update(){
+        track.style.transform=`translateX(${-index*100}%)`;
+        renderDots();
+      }
+      function go(d){ index=(index+d+slides.length)%slides.length; update(); }
+      prev.addEventListener('click',()=>go(-1));
+      next.addEventListener('click',()=>go(1));
+      // Swipe support (simple)
+      let sx=null; track.addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});
+      track.addEventListener('touchend',e=>{ if(sx===null) return; const dx=e.changedTouches[0].clientX - sx; if(Math.abs(dx)>30) go(dx<0?1:-1); sx=null;});
+      update();
+    })();
   </script>
 </body>
 </html>
