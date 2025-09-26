@@ -41,7 +41,7 @@
     .shot{width:100%;border-radius:12px;border:1px solid var(--border);box-shadow:0 10px 20px rgba(0,0,0,.25);cursor:zoom-in;display:block}
     figcaption{font-size:13px;color:var(--muted);margin-top:6px}
     .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;padding:24px;z-index:9999}
-    .lightbox img{max-width:95vw;max-height:90vh;border-radius:10px}
+    .lightbox img{max-width:96vw;max-height:92vh;border-radius:10px}
     .lightbox.show{display:flex}
     .close{position:absolute;top:12px;right:16px;background:#fff;border:0;border-radius:999px;width:34px;height:34px;font-weight:700;cursor:pointer}
     footer{color:var(--muted);text-align:center;margin-top:28px}
@@ -71,9 +71,9 @@
     .carousel-dot{width:8px;height:8px;border-radius:999px;background:rgba(255,255,255,.25);border:1px solid var(--border)}
     .carousel-dot.active{background:var(--brand)}
       /* --- MINI CAROUSEL (3 thumbnails) --- */
-    .thumb-carousel{position:relative;background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:12px;margin:18px auto;max-width:520px}
-    .thumb-viewport{overflow:hidden}
-    .thumb-track{display:flex;gap:10px;transition:transform .4s ease}
+    .thumb-carousel{position:relative;background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;margin:18px auto;max-width:1040px}
+    .thumb-viewport{overflow:hidden; width: calc(var(--thumb) * 3 + 24px); margin: 0 auto}
+    .thumb-track{display:flex;gap:12px;transition:transform .4s ease}
     :root{--thumb:84px}
     .thumb{flex:0 0 var(--thumb);height:var(--thumb);border:1px solid var(--border);border-radius:10px;background:var(--codebg);display:grid;place-items:center;cursor:pointer;padding:0}
     .thumb img{width:100%;height:100%;object-fit:cover;border-radius:8px}
@@ -241,37 +241,51 @@
     });
     lb.addEventListener('click',e=>{ if(e.target===lb) lb.classList.remove('show');});
 
-    // Galerie photo — swipe + dots uniquement
+    // Galerie photo — swipe + dots + autoplay
     (function(){
       const track=document.getElementById('thumb-track');
       if(!track) return;
       const dots=document.getElementById('thumb-dots');
+      const carouselSection = track.closest('.thumb-carousel');
       const thumbs=Array.from(track.children);
       const perView=3; // 3 visibles
-      let gap=parseInt(getComputedStyle(track).gap||'12',10);
+      const gap=12; // doit matcher le CSS
       function unit(){ return parseInt(getComputedStyle(document.documentElement).getPropertyValue('--thumb')) + gap; }
       const pages=Math.max(1, Math.ceil(thumbs.length / perView));
-      let page=0;
+      let page=0; let timer=null; const delay=3500;
+
       function render(){
         track.style.transform=`translateX(${-page*unit()*perView}px)`;
         dots.innerHTML='';
         for(let i=0;i<pages;i++){
           const b=document.createElement('button');
           if(i===page) b.classList.add('active');
-          b.addEventListener('click',()=>{page=i;render();});
+          b.addEventListener('click',()=>{page=i; render(); restartAuto();});
           dots.appendChild(b);
         }
       }
-      // pointer swipe (souris + tactile)
+      function next(){ page=(page+1)%pages; render(); }
+      function startAuto(){ if(timer) return; timer=setInterval(next, delay); }
+      function stopAuto(){ if(timer){ clearInterval(timer); timer=null; } }
+      function restartAuto(){ stopAuto(); startAuto(); }
+
+      // Pointer swipe (souris + tactile)
       let startX=null;
-      track.addEventListener('pointerdown',e=>{ startX=e.clientX; track.setPointerCapture(e.pointerId); });
+      track.addEventListener('pointerdown',e=>{ startX=e.clientX; track.setPointerCapture(e.pointerId); stopAuto(); });
       track.addEventListener('pointerup',e=>{
-        if(startX==null) return; const dx=e.clientX-startX; const th=40; // seuil
+        if(startX==null) return; const dx=e.clientX-startX; const th=40;
         if(Math.abs(dx)>th){ page = (page + (dx<0?1:-1) + pages) % pages; render(); }
-        startX=null;
+        startX=null; restartAuto();
       });
-      window.addEventListener('resize',()=>{ gap=parseInt(getComputedStyle(track).gap||'12',10); render(); });
+
+      // Pause on hover/focus
+      carouselSection.addEventListener('mouseenter', stopAuto);
+      carouselSection.addEventListener('mouseleave', startAuto);
+      carouselSection.addEventListener('focusin', stopAuto);
+      carouselSection.addEventListener('focusout', startAuto);
+
       render();
+      startAuto();
     })();
   </script>
 </body>
