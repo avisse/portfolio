@@ -1,170 +1,259 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<!doctype html>
+<html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Égalité Professionnelle – Étude & sensibilisation</title>
+  <meta name="description" content="Projet d'étude et de sensibilisation à l'égalité professionnelle femmes-hommes : objectifs, livrables, étapes et documentation téléchargeable."/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0d12;          /* page background */
+      --panel:#0f1320;       /* main cards */
+      --panel-2:#12172a;     /* sidebar cards */
+      --text:#e6ebf3;        /* main text */
+      --muted:#a9b1c6;       /* muted text */
+      --accent:#6366f1;      /* primary */
+      --accent-2:#22d3ee;    /* secondary */
+      --ok:#10b981;          /* success */
+      --border:#1f2542;      /* borders */
+      --chip:#1a2140;        /* chip bg */
+      --shadow:0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.02);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      color:var(--text); background:radial-gradient(1200px 800px at 70% -10%, rgba(99,102,241,.08), transparent 60%),
+                        radial-gradient(1200px 800px at -10% 30%, rgba(34,211,238,.08), transparent 60%), var(--bg);
+      line-height:1.55; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    }
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:1200px; margin:0 auto; padding:32px 20px 64px}
 
-  <title>Steve Avisse</title>
-  <meta content="" name="descriptison">
-  <meta content="" name="keywords">
+    /* Top Bar */
+    .topbar{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:22px}
+    .brand{display:flex; align-items:center; gap:12px}
+    .logo{width:38px; height:38px; border-radius:10px; background:linear-gradient(135deg,var(--accent),var(--accent-2)); box-shadow:var(--shadow)}
+    .brand h1{font-size:18px; margin:0; font-weight:700; letter-spacing:.2px}
+    .pill{font-size:12px; padding:6px 10px; border:1px solid var(--border); border-radius:999px; color:var(--muted)}
 
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    /* Layout */
+    .grid{display:grid; grid-template-columns: 1.4fr .9fr; gap:24px}
+    @media (max-width: 980px){ .grid{grid-template-columns:1fr} }
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    .card{background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.0)), var(--panel); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow)}
+    .card.side{background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,0)), var(--panel-2)}
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/icofont/icofont.min.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/venobox/venobox.css" rel="stylesheet">
-  <link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+    .hero{padding:26px 26px 8px}
+    .eyebrow{font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.14em}
+    .title{font-size:32px; line-height:1.15; margin:6px 0 10px; font-weight:800}
+    .subtitle{color:var(--muted); margin:0}
 
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+    /* Gallery */
+    .gallery{position:relative; overflow:hidden; border-radius:16px; margin:18px 0 8px; background:#0a0d16; border:1px solid var(--border)}
+    .slides{display:flex; transition:transform .5s ease}
+    .slide{min-width:100%; display:flex; align-items:center; justify-content:center}
+    .slide img{width:100%; height:auto; display:block}
+    .nav{position:absolute; inset:0; pointer-events:none}
+    .btn-nav{position:absolute; top:50%; transform:translateY(-50%); pointer-events:auto; width:42px; height:42px; border-radius:999px; border:1px solid var(--border); background:rgba(10,14,25,.7); backdrop-filter: blur(6px); display:grid; place-items:center; cursor:pointer}
+    .btn-prev{left:10px} .btn-next{right:10px}
+    .btn-nav svg{width:18px; height:18px; opacity:.9}
+    .dots{display:flex; gap:6px; justify-content:center; padding:12px}
+    .dot{width:7px; height:7px; border-radius:999px; background:#31406f; border:1px solid var(--border)}
+    .dot.active{background:var(--accent)}
 
-  <!-- =======================================================
-  * Template Name: MyResume - v2.1.0
-  * Template URL: https://bootstrapmade.com/free-html-bootstrap-template-my-resume/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== --> 
+    /* Sidebar */
+    .side{padding:24px; position:sticky; top:16px; align-self:start}
+    .tags{display:flex; flex-wrap:wrap; gap:8px; margin:14px 0 10px}
+    .tag{background:var(--chip); border:1px solid var(--border); border-radius:999px; padding:6px 10px; font-size:12px; color:#c6d0f5}
+    .meta{display:grid; gap:8px; margin:12px 0 0}
+    .meta dt{font-size:12px; color:var(--muted)}
+    .meta dd{margin:0; font-weight:600}
+    .cta{margin-top:16px; display:flex; gap:10px; flex-wrap:wrap}
+    .btn{display:inline-flex; align-items:center; gap:10px; border-radius:12px; padding:10px 14px; border:1px solid var(--border); background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.01)); font-weight:600}
+    .btn.primary{background:linear-gradient(180deg, rgba(99,102,241,.16), rgba(99,102,241,.08)); border-color:#3a41a5}
+
+    /* Content blocks */
+    .blocks{margin-top:10px; padding:0 26px 26px}
+    .block{background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.0)); border:1px solid var(--border); border-radius:16px; margin-top:14px; overflow:hidden}
+    .block summary{cursor:pointer; list-style:none; padding:16px 18px; font-weight:700; letter-spacing:.2px}
+    .block summary::marker{display:none}
+    .block summary:hover{background:rgba(255,255,255,.03)}
+    .block .content{padding:0 18px 18px; color:var(--muted)}
+    .block ul{margin:0 0 0 18px}
+
+    /* Prose */
+    .prose{color:var(--muted); font-size:15px}
+    .prose p{margin:10px 0}
+    .check{display:inline-block; padding:2px 8px; border-radius:999px; background:rgba(16,185,129,.15); border:1px solid rgba(16,185,129,.35); color:#b7f7dc; font-size:12px}
+
+    footer{margin-top:32px; color:var(--muted); text-align:center}
+  </style>
 </head>
-
 <body>
-
-  <main id="main">
-
-    <!-- ======= Portfolio Details ======= -->
-    <section id="portfolio-details" class="portfolio-details">
-      <div class="container" data-aos="fade-up">
-
-        <div class="row">
-
-          <div class="col-lg-8">
-            <h2 class="portfolio-title">Égalité Professionnelle : Analyse, Sensibilisation et Pistes d'Action</h2>
-            <div class="owl-carousel portfolio-details-carousel">
-              <img src="assets/img/egalite.PNG" class="img-fluid" alt="">
-              <img src="assets/img/inégalite01.PNG" class="img-fluid" alt="">
-              <img src="assets/img/inégalite02.PNG" class="img-fluid" alt="">
-              <img src="assets/img/inégalite03.PNG" class="img-fluid" alt="">
-                 <img src="assets/img/inégalite04.PNG" class="img-fluid" alt="">
-            </div>
-          </div>
-
-          <div class="col-lg-4 portfolio-info">
-            <h3><strong>Genre et travail </strong></h3>
-            <ul>
-              <li><strong>Categorie</strong>: égalité homme femme </li>
-              <li><strong>Pour: </strong>:Conservatoire national des arts et métiers</li>
-               <p><a href="assets/img/GME.pdf"  class="btn btn-primary py-3 px-3"> Mon etude </a></p>
-               <p><strong>Introduction :</strong></p>
-              <p>Dans le cadre de mes études, j'ai engagé un projet <strong>d'envergure</strong> visant <strong>à sensibiliser et à lutter activement</strong> contre les inégalités persistantes <strong>entre les femmes et les hommes</strong> au sein du <strong>monde professionnel</strong>.</p>
-<p><strong>Cette initiative</strong> s'inscrit dans une démarche pédagogique engagée, ayant pour <strong>objectif principal</strong> d'éclairer les participants sur <strong>les multiples facettes des inégalités de genre</strong>.</p>
-<p>Au travers de cette sensibilisation, nous aspirons <strong>à susciter une prise de conscience collective</strong> quant à <strong>l'ampleur de ce défi sociétal</strong>, tout en offrant des solutions concrètes et pragmatiques <strong>pour favoriser l'égalité au sein des organisations</strong>.</p>
-<p> <strong>Notre engagement</strong> repose sur <strong>la conviction que la diversité des genres est une richesse</strong>, et que <strong>la promotion de l'égalité homme-femme constitue un levier essentiel</strong> pour le progrès social et économique. Ainsi, <strong>cette initiative</strong> se veut être <strong>un catalyseur de changement</strong>, encourageant <strong>la réflexion et l'action en faveur d'un monde professionnel équitable et inclusif</strong>.</p>
-
-            </ul>
-          </div>
-
-          <div class="col-lg-13 portfolio-info">
-            <h2 class="bold-blue">Objectifs pédagogiques</h2>
-            
-            </ul>
-            <p>Les objectifs de cette initiative éducative sont multiples. Il s'agit tout d'abord de sensibiliser les participants à la question des inégalités de genre, en mettant l'accent sur leur présence dans tous les aspects du monde professionnel. La compréhension des fondements de ces inégalités, élaborées à travers la socialisation différenciée des sexes, constitue une étape essentielle. </p>
-          <p>En outre, l'étude vise à démontrer comment ces inégalités persistent dans l'ensemble de la société et du monde du travail. En fournissant des pistes d'action concrètes, le projet aspire à rendre les organisations plus respectueuses de l'égalité entre les femmes et les hommes.</p>
-          <p>L'enseignement déployé dans ce projet est conçu pour élargir les compétences de tous les participants, indépendamment de leur situation de travail ou de leur spécialité professionnelle. Il vise particulièrement à sensibiliser les décideurs, les responsables des ressources humaines, les responsables opérationnels, les élus du personnel, les syndicats et les salariés à l'égalité professionnelle et à la mixité.</p>
-
-<p>L'engagement de cette étude s'étend au-delà de la sensibilisation, cherchant à contribuer activement à la mise en œuvre de politiques d'égalité professionnelle et de programmes de lutte contre les discriminations au sein des organisations, en particulier au Ministère de la Culture.</p>
-          </div>
-
-         <h2 class="bold-blue">Étapes de réalisation de l'étude :</h2>
-
-<ol>
-    <li class="bold-blue"><strong>Définition des Objectifs :</strong>
-        <ul>
-            <li>Identification précise des objectifs pédagogiques et des résultats attendus.</li>
-        </ul>
-    </li>
-
-    <li class="bold-blue"><strong>Recherche Documentaire :</strong>
-        <ul>
-            <li>Analyse approfondie des études existantes, des statistiques et des rapports sur les inégalités femmes-hommes dans le contexte professionnel.</li>
-        </ul>
-    </li>
-
-    <li class="bold-blue"><strong>Conception des Supports Pédagogiques :</strong>
-        <ul>
-            <li>Élaboration de supports pédagogiques interactifs et informatifs adaptés à différents publics.</li>
-        </ul>
-    </li>
-
-    <li class="bold-blue"><strong>Sensibilisation des Participants :</strong>
-        <ul>
-            <li>Mise en œuvre de sessions de sensibilisation, ateliers et conférences pour divers acteurs au sein du Ministère de la Culture.</li>
-        </ul>
-    </li>
-
-    <li class="bold-blue"><strong>Élaboration de Pistes d'Action :</strong>
-        <ul>
-            <li>Identification et formulation de recommandations concrètes pour promouvoir l'égalité professionnelle.</li>
-        </ul>
-    </li>
-
-    <li class="bold-blue"><strong>Évaluation de l'Impact :</strong>
-        <ul>
-            <li>Mesure de l'impact de la sensibilisation et des actions proposées, ajustements éventuels.</li>
-        </ul>
-    </li>
-
-    <li class="bold-blue"><strong>Rapport Final :</strong>
-        <ul>
-            <li>Compilation des résultats, des enseignements tirés et des recommandations dans un rapport final.</li>
-        </ul>
-    </li>
-
-    <li class="bold-blue"><strong>Diffusion et Partage :</strong>
-        <ul>
-            <li>Intégration des résultats dans des publications, présentations, et partage avec la communauté académique et professionnelle.</li>
-        </ul>
-    </li>
-</ol>
-
-<p>Ce projet constitue une démarche proactive visant à transformer les mentalités et les pratiques, contribuant ainsi à la construction d'un environnement professionnel plus équitable et inclusif.</p>
-
-
-
-
-     
-
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <h1>Portfolio – Steve Avisse</h1>
       </div>
-    </section><!-- End Portfolio Details -->
+      <span class="pill">Projet académique • Sensibilisation</span>
+    </div>
 
-  </main><!-- End #main -->
+    <div class="grid">
+      <!-- LEFT: main card with title + gallery + intro  -->
+      <section class="card hero" aria-labelledby="titre">
+        <div class="eyebrow">Genre & Travail</div>
+        <h2 id="titre" class="title">Égalité Professionnelle — Analyse, sensibilisation & pistes d'action</h2>
+        <p class="subtitle">Étude conduite dans le cadre du <strong>CNAM</strong> pour <strong>sensibiliser</strong> et <strong>agir</strong> contre les inégalités femmes‑hommes au travail.</p>
 
-  <a href="#" class="back-to-top"><i class="bx bx-up-arrow-alt"></i></a>
-  <div id="preloader"></div>
+        <!-- gallery -->
+        <div class="gallery" id="gal" aria-label="Galerie d'illustrations du projet">
+          <div class="slides">
+            <figure class="slide"><img src="assets/img/egalite.PNG" alt="Aperçu de l'étude égalité professionnelle"></figure>
+            <figure class="slide"><img src="assets/img/inégalite01.PNG" alt="Graphique sur les inégalités"></figure>
+            <figure class="slide"><img src="assets/img/inégalite02.PNG" alt="Données thématiques de l'étude"></figure>
+            <figure class="slide"><img src="assets/img/inégalite03.PNG" alt="Zoom sur indicateurs"></figure>
+            <figure class="slide"><img src="assets/img/inégalite04.PNG" alt="Recommandations et actions"></figure>
+          </div>
+          <div class="nav" aria-hidden="true">
+            <button class="btn-nav btn-prev" aria-label="Précédent" title="Précédent"> 
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <button class="btn-nav btn-next" aria-label="Suivant" title="Suivant"> 
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          </div>
+          <div class="dots" role="tablist" aria-label="Navigation de la galerie"></div>
+        </div>
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/jquery/jquery.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/vendor/waypoints/jquery.waypoints.min.js"></script>
-  <script src="assets/vendor/counterup/counterup.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/venobox/venobox.min.js"></script>
-  <script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
-  <script src="assets/vendor/typed.js/typed.min.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
+        <div class="prose">
+          <p>Le projet vise à <strong>éclairer les multiples facettes des inégalités de genre</strong> et à proposer des <strong>actions concrètes</strong> pour favoriser un environnement de travail plus équitable et inclusif. Il s'adresse notamment aux <em>décideurs</em>, <em>RH</em>, <em>responsables opérationnels</em> et <em>représentants du personnel</em>.</p>
+          <span class="check">Objectif : sensibiliser & passer à l'action</span>
+        </div>
 
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+        <!-- Expandable blocks  -->
+        <div class="blocks">
+          <details class="block" open>
+            <summary>Objectifs pédagogiques</summary>
+            <div class="content">
+              <p>Comprendre les mécanismes d'iniquité (socialisation différenciée), mesurer leur impact dans <strong>tous les pans du monde du travail</strong> et outiller les organisations pour <strong>mettre en œuvre des politiques d'égalité</strong>.</p>
+              <ul>
+                <li>Sensibiliser largement (décideurs, RH, managers, élus du personnel, salariés).</li>
+                <li>Outiller avec des supports pédagogiques et des indicateurs suivables.</li>
+                <li>Proposer des <strong>pistes d'action opérationnelles</strong> et mesurables.</li>
+              </ul>
+            </div>
+          </details>
 
+          <details class="block">
+            <summary>Étapes de réalisation</summary>
+            <div class="content">
+              <ol>
+                <li><strong>Définition des objectifs</strong> — périmètre & livrables attendus.</li>
+                <li><strong>Recherche documentaire</strong> — études, statistiques, rapports.</li>
+                <li><strong>Conception des supports</strong> — modules, infographies, cas pratiques.</li>
+                <li><strong>Sensibilisation des participants</strong> — ateliers, conférences.</li>
+                <li><strong>Pistes d'action</strong> — recommandations concrètes & KPI.</li>
+                <li><strong>Évaluation de l'impact</strong> — mesures & ajustements.</li>
+                <li><strong>Rapport final</strong> — synthèse, enseignements & plan d'action.</li>
+                <li><strong>Diffusion</strong> — partage interne/externe et capitalisation.</li>
+              </ol>
+            </div>
+          </details>
+
+          <details class="block">
+            <summary>Méthodologie & livrables</summary>
+            <div class="content">
+              <ul>
+                <li>Audit des pratiques et <em>benchmarks</em> nationaux.</li>
+                <li>Kit pédagogique : supports de formation, guides d'animation, quiz.</li>
+                <li>Tableau de bord d'indicateurs : recrutement, rémunération, promotion, QVT.</li>
+                <li>Plan d'actions priorisé avec jalons & responsables.</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <!-- RIGHT: sticky sidebar with tags + meta + CTA -->
+      <aside class="card side">
+        <h3 style="margin:0 0 8px">Infos projet</h3>
+        <p class="muted" style="margin:0; color:var(--muted)">Égalité femmes‑hommes • Sensibilisation & transformation</p>
+
+        <div class="tags" aria-label="Mots-clés">
+          <span class="tag">Égalité pro</span>
+          <span class="tag">Mixité</span>
+          <span class="tag">Sensibilisation</span>
+          <span class="tag">KPI</span>
+          <span class="tag">Kit pédagogique</span>
+        </div>
+
+        <dl class="meta">
+          <dt>Catégorie</dt><dd>Genre & Travail</dd>
+          <dt>Contexte</dt><dd>Projet académique – CNAM</dd>
+          <dt>Public cible</dt><dd>Décideurs, RH, managers, représentants</dd>
+        </dl>
+
+        <div class="cta">
+          <a class="btn primary" href="assets/img/GME.pdf" target="_blank" rel="noopener">
+            📄 Consulter l'étude (PDF)
+          </a>
+          <a class="btn" href="#titre">⬇️ Voir les détails</a>
+        </div>
+      </aside>
+    </div>
+
+    <footer>
+      Page de projet – nouveau design (accessible, responsive, sans dépendances lourdes).
+    </footer>
+  </div>
+
+  <script>
+    // Simple accessible carousel
+    (function(){
+      const root = document.getElementById('gal');
+      if(!root) return;
+      const track = root.querySelector('.slides');
+      const slides = Array.from(root.querySelectorAll('.slide'));
+      const prev = root.querySelector('.btn-prev');
+      const next = root.querySelector('.btn-next');
+      const dotsWrap = root.querySelector('.dots');
+      let index = 0;
+
+      function renderDots(){
+        dotsWrap.innerHTML = '';
+        slides.forEach((_,i)=>{
+          const b = document.createElement('button');
+          b.className = 'dot'+(i===index?' active':'');
+          b.setAttribute('aria-label','Aller à la diapositive '+(i+1));
+          b.addEventListener('click',()=>{ index=i; update(); });
+          dotsWrap.appendChild(b);
+        });
+      }
+      function update(){
+        const x = -index * 100;
+        track.style.transform = `translateX(${x}%)`;
+        renderDots();
+      }
+      function go(dir){
+        index = (index + dir + slides.length) % slides.length;
+        update();
+      }
+      prev.addEventListener('click',()=>go(-1));
+      next.addEventListener('click',()=>go(1));
+      
+      // Keyboard support
+      root.addEventListener('keydown', (e)=>{
+        if(e.key==='ArrowRight') go(1);
+        if(e.key==='ArrowLeft') go(-1);
+      });
+      
+      update();
+    })();
+  </script>
 </body>
-
 </html>
